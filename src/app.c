@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:38:35 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/14 20:17:46 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/15 01:05:47 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,28 @@ void	app_init(t_app *app)
 	app->win = mlx_new_window(app->mlx, WIDTH, HEIGHT, "42");
 }
 
+int	iteration(t_app *app)
+{
+	t_obj *o = app->scene.first_obj;
+	app->scene.cam.pos = vec4(150 /** sin(app->count*/,50 /*50*/, 200 /** cos(app->count)*/, 1);
+	app->count += 0.01;
+	o->rot = vec4(0.7, 0, app->count * app->count2, 1);
+	app->count2 += 0.001;
+	mlx_clear_window(app->mlx, app->win);
+	draw_all_obj(app);
+	return (1);
+}
+
 void	app_run(t_app *app)
 {
 	t_obj *o;
 	
 	o = new_obj(app, make_cube(1));
-	o->scale = vec4(5, 5, 5, 5);
-	o->pos = vec4(5.0, 0, -75, 1);
-	o = new_obj(app, make_cube(1));
-	o->pos = vec4(-3.0, -5, -50, 1);
-	o->scale = vec4(5, 5, 5, 5);
-	app->scene.cam.pos = vec4(5, 5, 500, 1);
-	app->scene.cam.look = vec4(5, 0, -75, 1);
+	o->pos = vec4(0, 0, 0, 1);
+	o->rot = vec4(3, 2, 5, 1);
+	o->scale = vec4(30, 30, 30, 5);
+
+	app->count2 = 1.0;
 //	t_obj *obj;
 	
 
@@ -38,8 +48,10 @@ void	app_run(t_app *app)
 	//obj->pos = vec4(0.4, 0.5, 50.0, 1.0);
 	//`obj->rot = vec4(M_PI / 5, M_PI / 7, M_PI / 6, 1.0);
 	//draw_obj(app, app->scene.first_obj);
-	draw_all_obj(app);
+	//draw_all_obj(app);
 
+	mlx_loop_hook(app->mlx, iteration, app);
+	//	MLX_
 	mlx_loop(app->mlx);
 }
 

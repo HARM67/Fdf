@@ -6,12 +6,24 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 03:42:32 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/14 18:25:35 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/14 22:31:00 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "fdf.h"
+
+t_vec4	normalize(t_vec4 v)
+{
+	t_vec4	rt;
+	float	normal;
+
+	normal = 1 / sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	rt.x = v.x * normal;
+	rt.y = v.y * normal;
+	rt.z = v.z * normal;
+	return (rt);
+}
 
 t_vec4	inverse(t_vec4 v)
 {

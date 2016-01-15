@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/14 20:03:37 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/15 01:02:08 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ struct						s_app
 	void					*mlx;
 	void					*win;
 	t_scene					scene;
+	float					count;
+	float					count2;
 };
 
 // app.c
@@ -145,6 +147,7 @@ t_color						color_pos(t_color c1, t_color c2,
 t_vec4						vec4(float x, float y, float z, float w);
 t_vec4						sous_vec4(t_vec4 a, t_vec4 b);
 t_vec4						inverse(t_vec4 v);
+t_vec4						normalize(t_vec4 v);
 
 // line.c
 t_line						line(t_vec4 *a, t_vec4 *b);

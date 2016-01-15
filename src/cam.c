@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 18:11:46 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/14 20:13:01 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/14 22:33:57 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static t_matrix4x4	cam_rot(t_app *app)
 	t_vec4 u;
 	t_matrix4x4 rt;
 
-	f = sous_vec4(app->scene.cam.pos, app->scene.cam.look);
-	s = prod_vec(f, vec4(0, 1, 0, 1));
-	u = prod_vec(s, f);
+	f = normalize(sous_vec4(app->scene.cam.pos, app->scene.cam.look));
+	s = normalize(prod_vec(f, vec4(0, 1, 0, 1)));
+	u = normalize(prod_vec(s, f));
 	rt = identity_mat4x4();
 	rt.n[0][0] = s.x;
 	rt.n[0][1] = s.y;
@@ -63,8 +63,5 @@ t_vec4	do_cam(t_app *app, t_vec4 v)
 
 	mat = muli_mat4x4(cam_rot(app), tr(inverse(app->scene.cam.pos)));
 	rt = muli_mat4x4_vec4(mat, v);
-	//rt = translate_vec4(app->scene.cam.pos, v);
-	//tmp= sous_vec4(app->scencam.pos, app->scene.cam.look);
-//rt = translate_vec4(app->scene.cam.pos, v);
 	return (rt);
 }
