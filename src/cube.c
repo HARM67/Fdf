@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:14:54 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/14 17:26:54 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/18 12:48:55 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	make_cube_trgles(t_obj *o)
 
 	i = 0;
 	o->trgles = (t_trgle *)ft_memalloc(sizeof(t_trgle) * 12);
-	if (o->vecs == 0)
+	if (o->trgles == 0)
 		exit (1);
 	o->trgles[0] = trgle(&(o->vecs)[1], &(o->vecs)[0], &(o->vecs)[2]);
 	o->trgles[1] = trgle(&(o->vecs)[2], &(o->vecs)[3], &(o->vecs)[1]);

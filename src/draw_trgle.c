@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 06:18:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/18 08:54:49 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/18 14:26:53 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
 		rt.p[i] = &v[i];
 		i++;
 	}
-//	draw_trgle(app, rt);
-	draw_trgle_wired(app, rt);
+	draw_trgle(app, rt);
+//	draw_trgle_wired(app, rt);
 }
