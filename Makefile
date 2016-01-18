@@ -21,4 +21,6 @@ all:
 		$(SRC_PATH)cam.c \
 		$(SRC_PATH)obj.c \
 		$(SRC_PATH)prod_vec.c \
+		$(SRC_PATH)rasterization.c \
+		$(SRC_PATH)sphere.c \
 	 	-I./ft_printf/includes/ -I./includes -L./ft_printf -L./minilibx_macos -framework OpenGL -framework AppKit -lmlx -lftprintf

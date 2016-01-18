@@ -6,11 +6,12 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 06:18:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/14 22:34:10 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/18 08:54:49 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
 
 void	draw_trgle_wired(t_app *app, t_trgle t)
 {
@@ -28,7 +29,7 @@ void	draw_trgle_wired(t_app *app, t_trgle t)
 
 void	draw_trgle(t_app *app, t_trgle t)
 {
-	//draw_line(app, line(t.p , t.p + 1));
+	rasterization(app, *t.p[0], *t.p[1], *t.p[2]);
 }
 
 void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
@@ -52,5 +53,6 @@ void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
 		rt.p[i] = &v[i];
 		i++;
 	}
+//	draw_trgle(app, rt);
 	draw_trgle_wired(app, rt);
 }

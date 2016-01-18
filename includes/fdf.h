@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/15 01:02:08 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/18 12:09:49 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ typedef struct s_color		t_color;
 typedef struct s_vec4		t_vec4;
 typedef struct s_line		t_line;
 typedef struct s_trgle		t_trgle;
-/*
-typedef struct s_lstline	t_lstline;
-typedef struct s_lstvec4	t_lstvec4;
-typedef struct s_lsttrgle	t_lsttrgle;
-*/
 typedef struct s_matrix4x4	t_matrix4x4;
 typedef struct s_obj		t_obj;
 typedef struct s_cam		t_cam;
@@ -61,34 +56,15 @@ struct						s_trgle
 	t_vec4					*p[3];
 	t_vec4					normal;
 };
-/*
-struct						s_lstvec4
-{
-	t_vec4					*first;
-	t_vec4					*last;
-	t_vec4					*next;
-	t_vec4					*previous;
-};
 
-struct						s_lstline
-{
-	t_line					*first;
-	t_line					*last;
-	t_line					*next;
-	t_line					*previous;
-};
-
-struct						s_lsttrgle
-{
-	t_trgle					*first;
-	t_trgle					*last;
-	t_trgle					*next;
-	t_trgle					*previous;
-};
-*/
 struct						s_matrix4x4
 {
 	float					n[4][4];
+};
+
+struct						image
+{
+
 };
 
 struct						s_obj
@@ -129,6 +105,12 @@ struct						s_app
 	t_scene					scene;
 	float					count;
 	float					count2;
+	int						*img;
+	char					*data;
+	float					z_buffer[WIDTH * HEIGHT];
+	int						bpp;
+	int						sizeline;
+	int						endian;
 };
 
 // app.c
@@ -159,6 +141,7 @@ void						draw_line(t_app *app, t_line *line);
 
 // trgle.c
 t_trgle						trgle(t_vec4 *v1, t_vec4 *v2, t_vec4 *v3);
+t_obj						*make_trgle(t_vec4 v1, t_vec4 v2, t_vec4 v3);
 
 // draw_trgle.c
 void						draw_trans_wired(t_app *app, t_trgle t, t_obj *o);
@@ -180,6 +163,11 @@ t_vec4						rot_z(float rot_z, t_vec4 v);
 // cube.c
 t_obj						*make_cube();
 
+/*
+** sphare.c
+*/
+t_obj						*make_sphere(int row, int col);
+
 // draw_obj.c
 void						draw_obj(t_app *app, t_obj *obj);
 void						draw_all_obj(t_app *app);
@@ -199,4 +187,9 @@ t_vec4						do_cam(t_app *app, t_vec4 v);
 
 // prod_vec.c
 t_vec4						prod_vec(t_vec4 a, t_vec4 b);
+
+/*
+** rasterization.c
+*/
+void						rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3);
 #endif
