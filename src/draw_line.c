@@ -6,7 +6,7 @@
 /*   ->y: mfroeh->y <mfroeh->y@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 03:20:05 ->y mfroeh->y          #+#    #+#             */
-/*   Updated: 2016/01/17 23:33:03 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/19 15:41:47 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	draw_line_y(t_app *app, t_vec4 tmp, t_line *line)
 	{
 		if ((*line->p[0]).y < (*line->p[1]).y)
 		{
-			tmp2 = vec4((*line->p[1]).x + ((-f / tmp.y) * tmp.x), (*line->p[1]).y - f, (*line->p[1]).z + ((-f / tmp.y) * tmp.z), 0);
+			tmp2 = vec4((*line->p[1]).x + ((-f / tmp.y) * tmp.x), (*line->p[1]).y - f,
+						(*line->p[1]).z + ((-f / tmp.y) * tmp.z), 0);
 			tmp2.color = color_pos((*line->p[0]).color, (*line->p[1]).color, -f / tmp.y);
 		}
 		else if ((*line->p[0]).y > (*line->p[1]).y)

@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/17 13:46:53 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/17 23:55:01 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/19 15:30:51 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3)
 	{
 		a = vec4(d.x + (cursor * dm), cursor + d.y, d.z + cursor * (m.z - d.z) / (m.y - d.y), 1);
 		b = vec4(d.x + (cursor * du), cursor + d.y, d.z + cursor * (u.z - d.z) / (u.y - d.y), 1);
-	
 		a.color = color_pos(m.color, d.color, cursor / (m.y - d.y));
 		b.color = color_pos(u.color, d.color, cursor / (u.y - d.y));
 		l = line (&a, &b);
@@ -83,7 +82,7 @@ void	rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3)
 	cursor2 = 0;
 	while (cursor < u.y - d.y)
 	{
-		a = vec4(m.x + (cursor2 * um), cursor + d.y, m.z + cursor * (d.z - m.z) / (d.y - m.y), 1);
+		a = vec4(m.x + (cursor2 * um), cursor + d.y, m.z + cursor2* (u.z - m.z) / (u.y - m.y), 1);
 		b = vec4(d.x + (cursor * du), cursor + d.y, d.z + cursor * (u.z - d.z) / (u.y - d.y), 1);
 		a.color = color_pos(u.color, m.color, cursor2 / (u.y - m.y));
 		b.color = color_pos(u.color, d.color, cursor / (u.y - d.y));

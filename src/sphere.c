@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/18 08:40:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/18 14:26:07 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/19 16:59:47 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static	void	make_sphere_vertex(t_obj *o, int row, int col)
 		j = 0;
 		i++;
 	}
-	o->vecs[1].color = color(255, 0, 0, 0);
 }
 
 static void	make_sphere_trgles(t_obj *o, int row, int col)
@@ -59,7 +58,7 @@ static void	make_sphere_trgles(t_obj *o, int row, int col)
 	j = i;
 	while (i < col * (row - 1))
 	{
-		if (((i - col) % col) != 1)
+		if (((i - col) % col) != col - 1)
 		{
 			o->trgles[j] = trgle(&(o->vecs)[i - col + 2], &(o->vecs)[i + 2], &(o->vecs)[i + 3]);
 			i++;
@@ -68,15 +67,18 @@ static void	make_sphere_trgles(t_obj *o, int row, int col)
 		}
 		else
 		{
-			o->trgles[j] = trgle(&(o->vecs)[i - col + 2], &(o->vecs)[i + 2], &(o->vecs)[i + 3]);
+			o->trgles[j] = trgle(&(o->vecs)[i - col + 2], &(o->vecs)[i + 2], &(o->vecs)[i + 3 - col]);
 			i++;
-			o->trgles[j + 1] = trgle(&(o->vecs)[i + 2 ], &(o->vecs)[i - col + 2], &(o->vecs)[i - col + 1]);
+			o->trgles[j + 1] = trgle(&(o->vecs)[i + 2 - col], &(o->vecs)[i - col + 2 - col], &(o->vecs)[i - col + 1]);
 			j += 2;
 		}
 	}
-//	o->nbr_trgles -= col * 3;
-	ft_printf("%d %d", j, o->nbr_trgles);
-	o->nbr_trgles = 54;
+	while (j < o->nbr_trgles)
+	{
+		o->trgles[j] = trgle(&(o->vecs)[1], &(o->vecs)[i - col + 2], &(o->vecs)[i - col + 3]);
+		j++;
+		i++;
+	}
  }
 
 t_obj	*make_sphere(int row, int col)
@@ -85,7 +87,7 @@ t_obj	*make_sphere(int row, int col)
 
 	o = (t_obj *)ft_memalloc(sizeof(t_obj));
 	o->nbr_vecs = 2 + (row * col);
-	o->nbr_trgles = /*(row + 1) * col*/ (col * 2) + ((row - 1) * col * 2);
+	o->nbr_trgles =  (row - 2) * col * 2 + 2 * col;
 	make_sphere_vertex(o, row, col);
 	make_sphere_trgles(o, row, col);
 	o->nbr_lines = 0;

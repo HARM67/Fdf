@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/18 12:09:49 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/20 22:37:22 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@
 # define HEIGHT 768
 # include "mlx.h"
 # include "ft_printf.h"
+# include "get_next_line.h"
+# include <fcntl.h>
 # include <math.h>
 # define ABS(x) ((x > 0) ? x : -x)
 
 typedef struct s_color		t_color;
 typedef struct s_vec4		t_vec4;
+typedef struct s_vec4_lst	t_vec4_lst;
 typedef struct s_line		t_line;
 typedef struct s_trgle		t_trgle;
 typedef struct s_matrix4x4	t_matrix4x4;
 typedef struct s_obj		t_obj;
 typedef struct s_cam		t_cam;
+typedef struct s_fdf		t_fdf;
 typedef struct s_scene		t_scene;
 typedef struct s_app		t_app;
 
@@ -44,6 +48,24 @@ struct 						s_vec4
 	float					z;
 	float					w;
 	t_color					color;
+	t_vec4					*next;
+};
+
+struct						s_vec4_lst
+{
+	t_vec4					*first;
+	t_vec4					*last;
+	unsigned int			size;
+	unsigned int			x;
+	unsigned int			y;
+};
+
+struct						s_fdf
+{
+	unsigned int			largeur;
+	unsigned int			profondeur;
+	t_vec4_lst				lst;
+	unsigned int			max;
 };
 
 struct						s_line
@@ -55,16 +77,13 @@ struct						s_trgle
 {
 	t_vec4					*p[3];
 	t_vec4					normal;
+	t_color					color;
+	char					have_color;
 };
 
 struct						s_matrix4x4
 {
 	float					n[4][4];
-};
-
-struct						image
-{
-
 };
 
 struct						s_obj
@@ -81,9 +100,12 @@ struct						s_obj
 	char					render_type;
 	t_obj					*next;
 	t_obj					*previous;
+	t_color					color;
+	char					have_color;
+	t_matrix4x4				mat;
 };
 
-struct s_cam
+struct						s_cam
 {
 	t_vec4					pos;
 	t_vec4					look;
@@ -95,6 +117,7 @@ struct						s_scene
 	t_obj					*last_obj;
 	t_cam					cam;
 };
+
 
 struct						s_app
 {
@@ -111,6 +134,9 @@ struct						s_app
 	int						bpp;
 	int						sizeline;
 	int						endian;
+	char					mouse_1;
+	t_vec4					pos_save;
+	t_vec4					click;
 };
 
 // app.c
@@ -192,4 +218,15 @@ t_vec4						prod_vec(t_vec4 a, t_vec4 b);
 ** rasterization.c
 */
 void						rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3);
+
+/*
+** fdf.c
+*/
+t_obj						*read_fdf(t_app *app, char *filename);
+
+/*
+** vec4_lst.c
+*/
+t_vec4						*new_vec4(t_vec4 c);
+void						push_back_vec4(t_vec4_lst *lst, t_vec4 *elem);
 #endif

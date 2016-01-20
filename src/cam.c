@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 18:11:46 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/17 13:23:19 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/20 20:03:04 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_matrix4x4	cam_rot(t_app *app)
 	t_matrix4x4 rt;
 
 	f = normalize(sous_vec4(app->scene.cam.pos, app->scene.cam.look));
-	s = normalize(prod_vec(f, vec4(0, 1, 0, 1)));
+	s = normalize(prod_vec(f, vec4(0, -1, 0, 1)));
 	u = normalize(prod_vec(s, f));
 	rt = identity_mat4x4();
 	rt.n[0][0] = s.x;

@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:52:30 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/18 14:30:15 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/20 22:17:37 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	draw_vec4(t_app *app, t_vec4 tmp)
 {
-	
-	//if (app->z_buffer[(int)tmp.x + (int)(tmp.y * WIDTH)] > tmp.z)
+	if ((int)tmp.y < 0 || (int)tmp.y > HEIGHT - 5 || (int)tmp.x < 0 || (int)tmp.x > WIDTH)
+		return ;
+	//if (app->z_buffer[(int)tmp.x + (int)(tmp.y * WIDTH)] < tmp.z)
 	//	return ;
-	app->z_buffer[(int)tmp.x + (int)(tmp.y * WIDTH)] = tmp.z;
+	//app->z_buffer[(int)tmp.x + (int)(tmp.y * WIDTH)] = tmp.z;
 	//app->data[(int)tmp.y * app->sizeline + (int)tmp.x * app->bpp / 8] = (char)tmp.z / 2;
 	app->data[(int)(tmp.y + 0.5) * app->sizeline + (int)(tmp.x + 0.5) * app->bpp / 8] = tmp.color.b;
 	app->data[(int)(tmp.y + 0.5) * app->sizeline + (int)(tmp.x + 0.5) * app->bpp / 8 + 1] = tmp.color.g;

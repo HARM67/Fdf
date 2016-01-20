@@ -23,4 +23,6 @@ all:
 		$(SRC_PATH)prod_vec.c \
 		$(SRC_PATH)rasterization.c \
 		$(SRC_PATH)sphere.c \
-	 	-I./ft_printf/includes/ -I./includes -L./ft_printf -L./minilibx_macos -framework OpenGL -framework AppKit -lmlx -lftprintf
+		$(SRC_PATH)fdf.c \
+		$(SRC_PATH)vec4_lst.c \
+	 	get_next_line.c -I./ft_printf/includes/ -I./includes -L./ft_printf -L./minilibx_macos -framework OpenGL -framework AppKit -lmlx -lftprintf
