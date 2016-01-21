@@ -6,14 +6,14 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/20 22:37:22 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/20 23:14:01 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define WIDTH 1024
-# define HEIGHT 768
+# define WIDTH 1500
+# define HEIGHT 1200
 # include "mlx.h"
 # include "ft_printf.h"
 # include "get_next_line.h"

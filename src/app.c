@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:38:35 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/20 22:47:26 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/21 01:32:04 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@ int	mouse_move_hook(int x, int y, t_app *app)
 
 	if (app->mouse_1 == 1)
 	{
-		//app->pos_save = vec4()
 		o->rot = vec4(
 				((app->click.y - y)) / 200 + app->pos_save.x,
 				((x - app->click.x)) / 200 + app->pos_save.y,
 				0, 1)
 			;
-		ft_printf("%f, %f\n", o->rot.x, o->rot.y);
+		iteration(app);
 	}
 	return (0);
 }
@@ -55,31 +54,42 @@ int	mouse2(int button, int x, int y, t_app *app)
 {
 	t_obj *o = app->scene.first_obj;
 
-	//app->pos_save = o->rot;
-/*	= vec4(
-				(float)-(app->click.y - y - (HEIGHT / 2)) / 200.0,
-				(float)-(app->click.x - (x - WIDTH / 2))/200.0, 
-				0, 1)
-			;
-*/	app->mouse_1 = 0;
+	app->mouse_1 = 0;
+	return (0);
+}
+int	key_down(int key, t_app *app)
+{
+	t_obj *o = app->scene.first_obj;
+
+	if (key == 126)
+	{
+		o->scale.y *= 2;
+		iteration(app);
+	}
+	if (key == 125 && o->scale.y > 1)
+	{
+		o->scale.y /= 2;
+		iteration(app);
+	}
 	return (0);
 }
 
 int	mouse_hook(int button, int x, int y, t_app *app)
 {
-	ft_printf("%d\n", button);
 	t_obj *o = app->scene.first_obj;
 	if (button == 6 || button == 4)
 	{
 		app->scene.cam.pos.x *= 1.2;
 		app->scene.cam.pos.y *= 1.2;
 		app->scene.cam.pos.z *= 1.2;
+		iteration(app);
 	}
 	else if (button == 7 || button == 5)
 	{
 		app->scene.cam.pos.x *= 0.8;
 		app->scene.cam.pos.y *= 0.8;
 		app->scene.cam.pos.z *= 0.8;
+		iteration(app);
 	}
 	else if (button == 1)
 	{
@@ -96,28 +106,26 @@ void	app_run(t_app *app)
 	t_obj *o;
 
 	
-	/*o = new_obj(app, make_sphere(20, 20));
-	o->scale = vec4(20, 20, 20, 1);
-	o->render_type = 1;
-	o->have_color = 1;
-	o->color = color(150, 50, 50, 0);
-*/
-//	o = new_obj(app,make_cube(1));
-//	o->scale = vec4(40, 40, 40, 1);
-//	o->have_color = 1;
-//	o->color = color(0, 255, 0, 0);
-//	read_fdf(app, "42.fdf");
-	app->mouse_1 = 0;
-	o = new_obj(app,read_fdf(app, "42.fdf"));
-	o->scale = vec4(4, 4, 4, 1);
 
-	app->scene.cam.pos = vec4(0, -50, 500, 1);
+/*	o = new_obj(app,make_sphere(80, 80));
+	o->scale = vec4(40, 40, 40, 1);
+	o->have_color = 1;
+	o->color = color(0, 255, 0, 0);
+	read_fdf(app, "42.fdf");
+	app->mouse_1 = 0;
+*/	o = new_obj(app,read_fdf(app, "pyramide.fdf"));
+	o->scale = vec4(2, 32, 2, 1);
+	o->rot = vec4(0, 2, 0, 1);
+
+
+	app->scene.cam.pos = vec4(0, 50, 150, 1);
 	app->scene.cam.look = vec4(0, 0, 0, 1);
 
 	mlx_hook(app->win, 6, (1L<<6), mouse_move_hook, app);
 	mlx_hook(app->win, 5, (1L<<2), &mouse2, app);
 	mlx_mouse_hook(app->win, mouse_hook, app);
-	mlx_loop_hook(app->mlx, iteration, app);
+//	mlx_loop_hook(app->mlx, iteration, app);
+	mlx_hook(app->win, 2, (1L<<0), key_down, app);
 
 //	mlx_put_image_to_window(app->mlx, app->win, app->img, 0, 0);
 

@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:58:11 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/20 22:50:59 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/20 23:35:53 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,13 @@ void	draw_all_obj(t_app *app)
 	t_obj *tmp;
 
 	tmp = app->scene.first_obj;
-	tmp->mat = scale_mat(tmp->scale);
-	tmp->mat = muli_mat4x4(rot_y_mat(tmp->rot.y), tmp->mat);
 	while (tmp)
 	{
+		tmp->mat = scale_mat(tmp->scale);
+		tmp->mat = muli_mat4x4(rot_y_mat(tmp->rot.y), tmp->mat);
+		tmp->mat = muli_mat4x4(rot_x_mat(tmp->rot.x), tmp->mat);
+		tmp->mat = muli_mat4x4(rot_z_mat(tmp->rot.z), tmp->mat);
+		tmp->mat = muli_mat4x4(translate_mat(tmp->pos), tmp->mat);
 		if (tmp->render_type == 1)
 			draw_all_vec4(app, tmp);
 		else
