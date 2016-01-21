@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:14:54 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/19 16:26:38 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/21 21:50:34 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_obj	*make_cube()
 	t_obj	*o;
 
 	o = (t_obj *)ft_memalloc(sizeof(t_obj));
+	ft_strcpy(o->name, "cube");
 	make_cube_vertex(o);
 	make_cube_trgles(o);
 	o->nbr_lines = 0;

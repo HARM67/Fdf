@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 18:45:24 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/20 23:27:28 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/21 21:01:25 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,21 @@ void	read_first_line(char *line, t_fdf *fdf)
 		fdf->lst.x = x;
 }
 
+void	clean_fdf(t_fdf *fdf)
+{
+	t_vec4 *tmp;
+	t_vec4 *tmp2;
+
+	tmp = fdf->lst.first;
+	while (tmp)
+	{
+		tmp2 = tmp->next;
+		free(tmp);
+		tmp = 0;
+		tmp = tmp2;
+	}
+}
+
 void	fdf_lst_to_array(t_obj *o, t_fdf *fdf)
 {
 	unsigned int i;
@@ -64,6 +79,9 @@ void	fdf_lst_to_array(t_obj *o, t_fdf *fdf)
 		tmp->y /= fdf->max;
 		tmp->x -= fdf->lst.x / 2;
 		tmp->z -= fdf->lst.y / 2;
+		tmp->x =  tmp->x /( (fdf->lst.x > fdf->lst.y) ? fdf->lst.x : fdf->lst.y);
+		tmp->z =  tmp->z / ((fdf->lst.x > fdf->lst.y) ? fdf->lst.x : fdf->lst.y);
+		tmp->y =  tmp->y / ((fdf->lst.x > fdf->lst.y) ? fdf->lst.x : fdf->lst.y);
 		o->vecs[i] = *tmp;
 		i++;
 		tmp = tmp->next;
@@ -106,6 +124,7 @@ t_obj	*read_fdf(t_app *app, char *filename)
 	tmp = 0;
 	fdf.max = 1;
 	o = (t_obj*)ft_memalloc(sizeof(t_obj));
+	ft_strcpy(o->name, filename);
 	ft_bzero(&fdf, sizeof(t_fdf));
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
@@ -118,6 +137,7 @@ t_obj	*read_fdf(t_app *app, char *filename)
 	}
 	fdf_lst_to_array(o, &fdf);
 	make_fdf_trgle(o, &fdf);
+	clean_fdf(&fdf);
 	o->render_type = 0;
 	o->nbr_vecs = fdf.lst.size;
 	close (fd);

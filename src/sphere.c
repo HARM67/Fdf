@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/18 08:40:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/19 16:59:47 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/21 21:52:53 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_obj	*make_sphere(int row, int col)
 	t_obj	*o;
 
 	o = (t_obj *)ft_memalloc(sizeof(t_obj));
+	ft_strcpy(o->name, "sphere");
 	o->nbr_vecs = 2 + (row * col);
 	o->nbr_trgles =  (row - 2) * col * 2 + 2 * col;
 	make_sphere_vertex(o, row, col);

@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 18:11:46 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/20 20:03:04 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/21 19:07:18 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,20 @@ static t_matrix4x4	tr(t_vec4 trans)
 	return (m);
 }
 
+t_matrix4x4	cam_mat(t_app *app)
+{
+	t_matrix4x4	mat;
+
+	mat = muli_mat4x4(cam_rot(app), tr(inverse(app->scene.cam.pos)));
+	return (mat);
+}
+
 t_vec4	do_cam(t_app *app, t_vec4 v)
 {
 	t_vec4		rt;
 	t_matrix4x4	mat;
 
-	mat = muli_mat4x4(cam_rot(app), tr(inverse(app->scene.cam.pos)));
+	mat = cam_mat(app);
 	rt = muli_mat4x4_vec4(mat, v);
 	return (rt);
 }

@@ -6,14 +6,14 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/20 23:14:01 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/21 21:05:40 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define WIDTH 1500
-# define HEIGHT 1200
+# define WIDTH 1024
+# define HEIGHT 768
 # include "mlx.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
@@ -88,6 +88,7 @@ struct						s_matrix4x4
 
 struct						s_obj
 {
+	char					name[32];
 	t_vec4					*vecs;
 	t_line					*lines;
 	t_trgle					*trgles;
@@ -109,12 +110,16 @@ struct						s_cam
 {
 	t_vec4					pos;
 	t_vec4					look;
+	int						proj;
+	float					size_para;
+	float					fov;
 };
 
 struct						s_scene
 {
 	t_obj					*first_obj;
 	t_obj					*last_obj;
+	t_obj					*cur_obj;
 	t_cam					cam;
 };
 
@@ -137,6 +142,7 @@ struct						s_app
 	char					mouse_1;
 	t_vec4					pos_save;
 	t_vec4					click;
+	int						maj;
 };
 
 // app.c
@@ -200,12 +206,14 @@ void						draw_all_obj(t_app *app);
 
 // projection.c
 t_matrix4x4					perspective(t_vec4);
+t_vec4						perspective_vec4(t_app *app, t_vec4 v);
 
 // prod_scal.c
 float						prod_scal(t_vec4 v1, t_vec4 v2);
 
 // cam.c
 t_cam						new_cam(t_app *app);
+t_matrix4x4					cam_mat(t_app *app);
 
 // obj.c
 t_obj						*new_obj(t_app *app, t_obj *o);
@@ -229,4 +237,13 @@ t_obj						*read_fdf(t_app *app, char *filename);
 */
 t_vec4						*new_vec4(t_vec4 c);
 void						push_back_vec4(t_vec4_lst *lst, t_vec4 *elem);
+
+/*
+** mov_mat.c
+*/
+t_matrix4x4 				translate_mat(t_vec4 trans);
+t_matrix4x4					scale_mat(t_vec4 scale);
+t_matrix4x4					rot_x_mat(float rot_x);
+t_matrix4x4 				rot_y_mat(float rot_y);
+t_matrix4x4					rot_z_mat(float rot_z);
 #endif
