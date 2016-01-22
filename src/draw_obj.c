@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:58:11 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/21 22:03:06 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/22 02:03:23 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,51 @@
 void	draw_dot(t_app *app, t_vec4 v, t_obj *o)
 {
 	t_trgle	rt;
+	t_vec4	tmp;
 	int i;
+	int j;
 
+	i = 0;
+	j = 0;
 	v = translate_vec4(vec4(WIDTH / 2, HEIGHT / 2, 1.0, 1.0), v);
-	//v.color = color(255, 255, 255, 255);
-	draw_vec4(app, v);
+	while (i < 3)
+	{
+		while (j < 3)
+		{
+			tmp = vec4(v.x - 1 + i, v.y - 1 + j, v.z, v.w);
+			tmp.color = v.color;
+			draw_vec4(app, tmp);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
 }
 
 void	draw_all_vec4(t_app *app, t_obj *obj)
 {
 	unsigned int i;
-	t_vec4 *v;
+	t_vec4 v;
 	float proj;
 
-	v = obj->vecs;
 	i = 0;
 
 	proj = app->scene.cam.proj;
-	/*
+	
 	obj->mat = scale_mat(obj->scale);
 	obj->mat = muli_mat4x4(rot_y_mat(obj->rot.y), obj->mat);
 	obj->mat = muli_mat4x4(rot_x_mat(obj->rot.x), obj->mat);
 	obj->mat = muli_mat4x4(rot_z_mat(obj->rot.z), obj->mat);
 	obj->mat = muli_mat4x4(translate_mat(obj->pos), obj->mat);
 	obj->mat = muli_mat4x4(cam_mat(app), obj->mat);
-*/	while (i < obj->nbr_vecs)
+	while (i < obj->nbr_vecs)
 	{
-		v[i] = muli_mat4x4_vec4(obj->mat, v[i]);
+		v = obj->vecs[i];
+		v = muli_mat4x4_vec4(obj->mat, v);
 		if (proj == 2)
-			v[i] = perspective_vec4(app, v[i]);
+			v = perspective_vec4(app, v);
 
-		draw_dot(app, obj->vecs[i], obj);
+		draw_dot(app, v, obj);
 		i++;
 	}
 }

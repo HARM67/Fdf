@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:38:35 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/21 22:05:51 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/22 02:07:30 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_text(t_app *app)
 	else if (app->scene.cam.proj == 1)
 	{
 		mlx_string_put(app->mlx, app->win, 30, 60, 0xFFFFFF, "parralel");
-		v = app->scene.first_obj->rot;
+		v = app->scene.cur_obj->rot;
 		ft_sprintf(&txt, "rot(x[%f], y[%f], z[%f])", v.x, v.y, v.z);
 		mlx_string_put(app->mlx, app->win, 30, 80, 0xFFFFFF, txt);
 		free (txt);
@@ -43,7 +43,7 @@ void	print_text(t_app *app)
 	else 
 	{
 		mlx_string_put(app->mlx, app->win, 30, 60, 0xFFFFFF, "perspective");
-		v = app->scene.first_obj->rot;
+		v = app->scene.cur_obj->rot;
 		ft_sprintf(&txt, "rot(x[%f], y[%f], z[%f])", v.x, v.y, v.z);
 		mlx_string_put(app->mlx, app->win, 30, 80, 0xFFFFFF, txt);
 		free (txt);

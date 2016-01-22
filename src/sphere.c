@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/18 08:40:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/21 21:52:53 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/22 02:14:36 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static	void	make_sphere_vertex(t_obj *o, int row, int col)
 		while (j < col)
 		{
 			o->vecs[i * row + j  + 2] = vec4(sin((i + 1) * M_PI / row) * cos((j + 1) * 2 * M_PI / col), cos((i + 1) * M_PI / row), sin((i + 1) * M_PI / row) * sin((j + 1) * 2 * M_PI / col), 1);
+		o->vecs[i * row + j  + 2].color = color(rand() % 256, rand() % 256, rand() % 256, 255);
 			j++;
 		}
 		j = 0;

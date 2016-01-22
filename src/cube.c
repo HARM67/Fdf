@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:14:54 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/21 21:50:34 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/22 02:57:00 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static	void	make_cube_vertex(t_obj *o)
 	o->vecs[5] = vec4(0.5, 0.5, 0.5, 1.0);
 	o->vecs[6] = vec4(-0.5, -0.5, 0.5, 1.0);
 	o->vecs[7] = vec4(0.5, -0.5, 0.5, 1.0);
-	o->vecs[0].color = color(255, 0, 0, 0);
-	o->vecs[1].color = color(255, 0, 0, 0);
-	o->vecs[6].color = color(255, 255, 0, 0);
+	o->vecs[2].color = color(255, 0, 0, 0);
+	o->vecs[0].color = color(0, 255, 0, 0);
+	o->vecs[6].color = color(0, 0, 255, 0);
 	o->vecs[7].color = color(0, 255, 255, 0);
 	o->vecs[4].color = color(0, 0, 255, 0);
 	o->vecs[5].color = color(255, 0, 255, 0);
@@ -49,10 +49,10 @@ static void	make_cube_trgles(t_obj *o)
 	o->trgles[4] = trgle(&(o->vecs)[4], &(o->vecs)[5], &(o->vecs)[7]);
 	o->trgles[5] = trgle(&(o->vecs)[7], &(o->vecs)[6], &(o->vecs)[4]);
 	o->trgles[6] = trgle(&(o->vecs)[0], &(o->vecs)[4], &(o->vecs)[6]);
-	o->trgles[7] = trgle(&(o->vecs)[6], &(o->vecs)[0], &(o->vecs)[4]);
+	o->trgles[7] = trgle(&(o->vecs)[6], &(o->vecs)[4], &(o->vecs)[0]);
 	o->trgles[8] = trgle(&(o->vecs)[0], &(o->vecs)[1], &(o->vecs)[4]);
 	o->trgles[9] = trgle(&(o->vecs)[5], &(o->vecs)[4], &(o->vecs)[1]);
-	o->trgles[10] = trgle(&(o->vecs)[6], &(o->vecs)[7], &(o->vecs)[2]);
+	o->trgles[10] = trgle(&(o->vecs)[6], &(o->vecs)[2], &(o->vecs)[7]);
 	o->trgles[11] = trgle(&(o->vecs)[2], &(o->vecs)[3], &(o->vecs)[7]);
 	o->nbr_trgles = 12;
 }
