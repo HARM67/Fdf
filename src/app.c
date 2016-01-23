@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:38:35 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/22 02:07:30 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 01:25:38 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	app_init(t_app *app)
 	ft_bzero(app->z_buffer, HEIGHT * WIDTH * 4);
 }
 
+
+
 void	print_text(t_app *app)
 {
 	char *txt;
@@ -29,28 +31,64 @@ void	print_text(t_app *app)
 
 	ft_sprintf(&txt, "name : [%s]", app->scene.cur_obj->name);
 	mlx_string_put(app->mlx, app->win, 10, 10, 0xFFFFFF, txt);
-	mlx_string_put(app->mlx, app->win, 10, 40, 0xFFFFFF, "Projection :");
+	free(txt);
+	//ft_sprintf(&txt, "projection : [%s]", app->scene.cam.proj);
 	if (app->scene.cam.proj == 0)
-		mlx_string_put(app->mlx, app->win, 30, 60, 0xFFFFFF, "isometric");
+		mlx_string_put(app->mlx, app->win, 10, 30, 0xFFFFFF, "Projection : [Isometric]");
 	else if (app->scene.cam.proj == 1)
-	{
-		mlx_string_put(app->mlx, app->win, 30, 60, 0xFFFFFF, "parralel");
-		v = app->scene.cur_obj->rot;
-		ft_sprintf(&txt, "rot(x[%f], y[%f], z[%f])", v.x, v.y, v.z);
-		mlx_string_put(app->mlx, app->win, 30, 80, 0xFFFFFF, txt);
-		free (txt);
-	}
-	else 
-	{
-		mlx_string_put(app->mlx, app->win, 30, 60, 0xFFFFFF, "perspective");
-		v = app->scene.cur_obj->rot;
-		ft_sprintf(&txt, "rot(x[%f], y[%f], z[%f])", v.x, v.y, v.z);
-		mlx_string_put(app->mlx, app->win, 30, 80, 0xFFFFFF, txt);
-		free (txt);
-	}
-	
+		mlx_string_put(app->mlx, app->win, 10, 30, 0xFFFFFF, "Projection : [Parralel]");
+	else
+		mlx_string_put(app->mlx, app->win, 10, 30, 0xFFFFFF, "Projection : [Perspective]");
+	if (app->scene.cur_obj->render_type == 0)
+		mlx_string_put(app->mlx, app->win, 10, 50, 0xFFFFFF, "Render_type : [dot]");
+	else if (app->scene.cur_obj->render_type == 1)
+		mlx_string_put(app->mlx, app->win, 10, 50, 0xFFFFFF, "Render_type : [line_X]");
+	else if (app->scene.cur_obj->render_type == 2)
+		mlx_string_put(app->mlx, app->win, 10, 50, 0xFFFFFF, "Render_type : [line_Y]");
+	else if (app->scene.cur_obj->render_type == 3)
+		mlx_string_put(app->mlx, app->win, 10, 50, 0xFFFFFF, "Render_type : [line_XY]");
+	else if (app->scene.cur_obj->render_type == 4)
+		mlx_string_put(app->mlx, app->win, 10, 50, 0xFFFFFF, "Render_type : [triangle_no_diag]");
+	else if (app->scene.cur_obj->render_type == 5)
+		mlx_string_put(app->mlx, app->win, 10, 50, 0xFFFFFF, "Render_type : [triangle_with_diag]");
+	else if (app->scene.cur_obj->render_type == 6)
+		mlx_string_put(app->mlx, app->win, 10, 50, 0xFFFFFF, "Render_type : [rasterization]");
+	v = app->scene.cur_obj->rot;
+	ft_sprintf(&txt, "rot(x[%f], y[%f], z[%f])", v.x, v.y, v.z);
+	mlx_string_put(app->mlx, app->win, 30, HEIGHT - 30, 0xFFFFFF, txt);
+	free (txt);
 }
 
+void	reset_buffer(t_app *app)
+{
+	int i;
+
+	i = 0;
+	while (i < HEIGHT * WIDTH)
+	{
+		app->z_buffer[i] = 90000.0;
+		i++;
+	}
+}void	show_z_buffer(t_app *app)
+{
+	int x;
+	int y;
+
+	x = 0;
+	y = 0;
+	while (y < HEIGHT)
+	{
+		while (x < WIDTH)
+		{
+			app->data[y * 4 * WIDTH + x * 4] = (char)(app->z_buffer[y * WIDTH + x ] / 4);
+			app->data[y * 4 * WIDTH + x * 4 + 1] = (char)(app->z_buffer[y * WIDTH + x ] / 4);
+			app->data[y * 4 * WIDTH + x * 4 + 2] = (char)(app->z_buffer[y * WIDTH + x ] / 4);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+}
 
 int	iteration(t_app *app)
 {
@@ -58,8 +96,14 @@ int	iteration(t_app *app)
 
 	app->count += 0.01;
 	ft_bzero(app->data, HEIGHT * WIDTH * 4);
-	ft_memset(app->z_buffer, 0xff, HEIGHT * WIDTH * 4);
+	reset_buffer(app);
 	draw_obj(app, o);
+	if (app->scene.cur_obj->render_type == 9)
+	{
+		ft_bzero(app->data, HEIGHT * WIDTH * 4);
+		show_z_buffer(app);
+	}
+		
 	mlx_put_image_to_window(app->mlx, app->win, app->img, 0, 0);
 	print_text(app);
 	return (1);
@@ -140,14 +184,17 @@ int	key_down(int key, t_app *app)
 			app->scene.cur_obj = (o->previous) ? o->previous : app->scene.last_obj;
 		iteration(app);
 	}
-	else if (key == 3)
+	else if (key == 19)
 	{
-		o->render_type = (o->render_type) ? 0 : 1;
+		o->render_type += (app->maj) ? -1 : 1;
+		o->render_type = (o->render_type < 0) ? 9 : o->render_type;
+		o->render_type = (o->render_type > 9) ? 0 : o->render_type;
 		iteration(app);
 	}
 	ft_printf("%d\n", key);
 	return (0);
 }
+
 
 int	mouse_hook(int button, int x, int y, t_app *app)
 {
@@ -173,6 +220,10 @@ int	mouse_hook(int button, int x, int y, t_app *app)
 		app->click.y = y;
 		app->pos_save = o->rot;
 	}
+	if (button == 1)
+	{
+		ft_printf("%f\n", app->z_buffer[x + (y * WIDTH)]);
+	}
 	return (0);
 }
 
@@ -187,6 +238,7 @@ void	load_all_fdf(t_app *app)
 		o = new_obj(app,read_fdf(app, app->av[i]));
 		o->scale = vec4(800, 800, 800, 1);
 		o->rot = vec4(0, -M_PI / 4, 0, 1);
+		o->render_type = 7;
 		i++;
 	}
 }
@@ -212,6 +264,7 @@ void	app_run(t_app *app)
 	o->rot = vec4(0, -M_PI / 4, 0, 1);
 	o->scale = vec4(300, 300, 300, 1);
 	o->have_color = 0;
+	o->render_type = 6;
 
 	app->scene.cur_obj = app->scene.first_obj;
 	app->scene.cam.fov = 70;

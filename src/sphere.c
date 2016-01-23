@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/18 08:40:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/22 02:14:36 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 01:26:15 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	make_sphere_trgles(t_obj *o, int row, int col)
 	}
 	while (j < o->nbr_trgles)
 	{
-		o->trgles[j] = trgle(&(o->vecs)[1], &(o->vecs)[i - col + 2], &(o->vecs)[i - col + 3]);
+		o->trgles[j] = trgle(&(o->vecs)[1], &(o->vecs)[i - col + 3], &(o->vecs)[i - col + 2]);
 		j++;
 		i++;
 	}

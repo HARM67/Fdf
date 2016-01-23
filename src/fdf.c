@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 18:45:24 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/21 21:01:25 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 03:25:17 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	fdf_lst_to_array(t_obj *o, t_fdf *fdf)
 {
 	unsigned int i;
 	t_vec4 *tmp;
-	int		c;
+	float		c;
 
 	i = 0;
 	o->vecs = (t_vec4*)ft_memalloc(sizeof(t_vec4) * fdf->lst.size);
@@ -74,8 +74,21 @@ void	fdf_lst_to_array(t_obj *o, t_fdf *fdf)
 	tmp = fdf->lst.first;
 	while (i < fdf->lst.size && tmp)
 	{
-		c = tmp->y * 255 / fdf->max;
-		tmp->color = color(c, 0, 255 - c, 255);
+		c = (float)(tmp->y / fdf->max);
+		
+		tmp->color = color(55 + 200 * c,55 + 200 * c,55 + 200 * c, 255);
+		if (c <= 0.003)
+		{
+			tmp->color = color(0, 0, 100, 255);
+		}
+		/*else if (c > 0.003 && c <= 0.01)
+		{
+			tmp->color = color(50, 100, 50, 255);
+		}*/
+		else if (c > 0.003 && c <= 0.2)
+		{
+			tmp->color = color(75, 75 + (unsigned char)(c * 300), 20, 255);
+		}
 		tmp->y /= fdf->max;
 		tmp->x -= fdf->lst.x / 2;
 		tmp->z -= fdf->lst.y / 2;
@@ -87,7 +100,13 @@ void	fdf_lst_to_array(t_obj *o, t_fdf *fdf)
 		tmp = tmp->next;
 	}
 }
+t_vec4	calc_normal(t_trgle t)
+{
+	t_vec4	rt;
 
+	rt = prod_vec(sous_vec4(*t.p[1], *t.p[0]), sous_vec4(*t.p[2], *t.p[0]));
+	return (rt);
+}
 void	make_fdf_trgle(t_obj *o, t_fdf *fdf)
 {
 	int x;
@@ -103,8 +122,14 @@ void	make_fdf_trgle(t_obj *o, t_fdf *fdf)
 	{
 		while (x < fdf->lst.x - 1)
 		{
-			o->trgles[j] = trgle(&o->vecs[(y * fdf->lst.x) + x + 1], &o->vecs[(y * fdf->lst.x) + x], &o->vecs[(y * fdf->lst.x) + x + fdf->lst.x]);
-			o->trgles[j + 1] = trgle(&o->vecs[(y * fdf->lst.x) + x + fdf->lst.x], &o->vecs[(y * fdf->lst.x) + x + fdf->lst.x + 1], &o->vecs[(y * fdf->lst.x) + x +1]);
+	//		o->trgles[j] = trgle(&o->vecs[(y * fdf->lst.x) + x + 1], &o->vecs[(y * fdf->lst.x) + x], &o->vecs[(y * fdf->lst.x) + x + fdf->lst.x]);
+			o->trgles[j] = trgle(&o->vecs[(y * fdf->lst.x) + x + fdf->lst.x], &o->vecs[(y * fdf->lst.x) + x], &o->vecs[(y * fdf->lst.x) + x + 1]);
+
+	//		o->trgles[j + 1] = trgle(&o->vecs[(y * fdf->lst.x) + x + fdf->lst.x], &o->vecs[(y * fdf->lst.x) + x + fdf->lst.x + 1], &o->vecs[(y * fdf->lst.x) + x +1]);
+			o->trgles[j + 1] = trgle(&o->vecs[(y * fdf->lst.x) + x +1], &o->vecs[(y * fdf->lst.x) + x + fdf->lst.x + 1],&o->vecs[(y * fdf->lst.x) + x + fdf->lst.x] );
+		//	o->trgles[j].normal = calc_normal(o->trgles[j]);
+		//	o->trgles[j + 1].normal = calc_normal(o->trgles[j + 1]);
+			//ft_printf("%f %f %f\n", o->trgles[j].normal.x, o->trgles[j].normal.y, o->trgles[j].normal.z);
 			x++;
 			j += 2;
 		}
@@ -112,6 +137,56 @@ void	make_fdf_trgle(t_obj *o, t_fdf *fdf)
 		y++;
 	}
 }
+
+void	make_fdf_line(t_obj *o, t_fdf *fdf)
+{
+	int x;
+	int y;
+	int j;
+	o->nbr_lines = (fdf->lst.x - 1) * fdf->lst.y;
+
+	o->lines = (t_line*)ft_memalloc(sizeof(t_line) * o->nbr_lines);
+	x = 0;
+	y = 0;
+	j = 0;
+	while (y < fdf->lst.y)
+	{
+		while (x < fdf->lst.x - 1)
+		{
+			o->lines[j] = line(&o->vecs[(y * fdf->lst.x) + x], &o->vecs[(y * fdf->lst.x) + x + 1]);
+			x++;
+			j++;
+		}
+		x = 0;
+		y++;
+	}
+}
+
+void	make_fdf_line2(t_obj *o, t_fdf *fdf)
+{
+	int x;
+	int y;
+	int j;
+	o->nbr_lines2 = (fdf->lst.y - 1) * fdf->lst.x;
+
+	o->lines2 = (t_line*)ft_memalloc(sizeof(t_line) * o->nbr_lines2);
+	x = 0;
+	y = 0;
+	j = 0;
+	while (x < fdf->lst.x)
+	{
+		while (y < fdf->lst.y - 1)
+		{
+		o->lines2[j] = line(&o->vecs[(y * fdf->lst.x) + x], &o->vecs[(y * fdf->lst.x) + x +fdf->lst.x]);
+			y++;
+			j++;
+		}
+		y = 0;
+		x++;
+	}
+}
+
+
 
 t_obj	*read_fdf(t_app *app, char *filename)
 {
@@ -137,6 +212,8 @@ t_obj	*read_fdf(t_app *app, char *filename)
 	}
 	fdf_lst_to_array(o, &fdf);
 	make_fdf_trgle(o, &fdf);
+	make_fdf_line(o, &fdf);
+	make_fdf_line2(o, &fdf);
 	clean_fdf(&fdf);
 	o->render_type = 0;
 	o->nbr_vecs = fdf.lst.size;

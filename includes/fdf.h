@@ -6,14 +6,14 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/21 21:05:40 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 04:44:39 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define WIDTH 1024
-# define HEIGHT 768
+# define WIDTH 1280
+# define HEIGHT 1024
 # include "mlx.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
@@ -90,13 +90,16 @@ struct						s_obj
 {
 	char					name[32];
 	t_vec4					*vecs;
+	t_vec4					*vecs_orig;
 	t_line					*lines;
+	t_line					*lines2;
 	t_trgle					*trgles;
 	t_vec4					scale;
 	t_vec4					pos;
 	t_vec4					rot;
 	unsigned int			nbr_vecs;
 	unsigned int			nbr_lines;
+	unsigned int			nbr_lines2;
 	unsigned int			nbr_trgles;
 	char					render_type;
 	t_obj					*next;
@@ -177,8 +180,9 @@ t_obj						*make_trgle(t_vec4 v1, t_vec4 v2, t_vec4 v3);
 
 // draw_trgle.c
 void						draw_trans_wired(t_app *app, t_trgle t, t_obj *o);
-void						draw_trgle_wired(t_app *app, t_trgle t);
+void						draw_trgle_wired(t_app *app, t_trgle t, int diag);
 void						draw_trgle(t_app *app, t_trgle t);
+int							check_vec4(t_vec4 v);
 
 // op_mat4x4.c
 t_matrix4x4					identity_mat4x4(void);

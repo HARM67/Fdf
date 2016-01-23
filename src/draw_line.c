@@ -6,7 +6,7 @@
 /*   ->y: mfroeh->y <mfroeh->y@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 03:20:05 ->y mfroeh->y          #+#    #+#             */
-/*   Updated: 2016/01/19 15:41:47 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 00:00:46 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	draw_line_y(t_app *app, t_vec4 tmp, t_line *line)
 	t_vec4	tmp2;
 
 	f = 0;
-	while (f <= ABS(tmp.y))
+	while (f <= ABS((int)(tmp.y + 0.5)))
 	{
 		if ((*line->p[0]).y < (*line->p[1]).y)
 		{
@@ -43,7 +43,7 @@ void	draw_line_x(t_app *app, t_vec4 tmp, t_line *line)
 	t_vec4	tmp2;
 
 	f = 0;
-	while (f <= ABS(tmp.x))
+	while (f <= ABS((int)(tmp.x + 0.5)))
 	{
 		if ((*line->p[0]).x < (*line->p[1]).x)
 		{
