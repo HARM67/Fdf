@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 04:44:39 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 09:26:22 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ struct						s_cam
 	int						proj;
 	float					size_para;
 	float					fov;
+	float					near;
+	float					far;
 };
 
 struct						s_scene
@@ -124,6 +126,10 @@ struct						s_scene
 	t_obj					*last_obj;
 	t_obj					*cur_obj;
 	t_cam					cam;
+	t_vec4					scale;
+	t_vec4					pos;
+	t_vec4					rot;
+	t_matrix4x4				mat;
 };
 
 
@@ -144,8 +150,11 @@ struct						s_app
 	int						endian;
 	char					mouse_1;
 	t_vec4					pos_save;
+	t_vec4					pos_save2;
 	t_vec4					click;
 	int						maj;
+	char					all;
+	char					render_type;
 };
 
 // app.c
@@ -250,4 +259,8 @@ t_matrix4x4					scale_mat(t_vec4 scale);
 t_matrix4x4					rot_x_mat(float rot_x);
 t_matrix4x4 				rot_y_mat(float rot_y);
 t_matrix4x4					rot_z_mat(float rot_z);
+
+
+void						do_scene_transform(t_app *app, t_scene *scn);
+void						draw_scene(t_app *app);
 #endif

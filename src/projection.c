@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 12:29:52 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/21 19:28:14 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 07:49:47 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ t_vec4	perspective_vec4(t_app *app, t_vec4 v)
 	fov = app->scene.cam.fov;
 	v.x *= (HEIGHT) / (tan(fov / 2) * v.z);
 	v.y *= (HEIGHT) / (tan(fov / 2) * v.z);
+	v.z = (v.z - app->scene.cam.near) / app->scene.cam.far;
 	return (v);
 }

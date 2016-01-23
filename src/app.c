@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:38:35 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 01:25:38 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 10:04:31 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,32 @@ void	app_init(t_app *app)
 }
 
 
+void	insert_sphere(t_app *app)
+{
+	t_obj *o;
+
+	o = app->scene.last_obj;
+	o = new_obj(app,make_sphere(80, 80));
+	o->scale = vec4(150, 150, 150, 1);
+	o->have_color = 1;
+	o->color = color(rand() % 256, rand() % 256, rand() % 256, 0);
+	o->render_type = 7;
+	app->scene.cur_obj = o;
+}
+
+void	insert_cube(t_app *app)
+{
+	t_obj *o;
+
+	o = app->scene.last_obj;
+	o = new_obj(app,make_cube());
+	o->scale = vec4(150, 150, 150, 1);
+	o->have_color = 1;
+	o->color = color(rand() % 256, rand() % 256, rand() % 256, 0);
+	o->render_type = 7;
+	app->scene.cur_obj = o;
+
+}
 
 void	print_text(t_app *app)
 {
@@ -66,10 +92,12 @@ void	reset_buffer(t_app *app)
 	i = 0;
 	while (i < HEIGHT * WIDTH)
 	{
-		app->z_buffer[i] = 90000.0;
+		app->z_buffer[i] = 1.0;
 		i++;
 	}
-}void	show_z_buffer(t_app *app)
+}
+
+void	show_z_buffer(t_app *app)
 {
 	int x;
 	int y;
@@ -80,9 +108,9 @@ void	reset_buffer(t_app *app)
 	{
 		while (x < WIDTH)
 		{
-			app->data[y * 4 * WIDTH + x * 4] = (char)(app->z_buffer[y * WIDTH + x ] / 4);
-			app->data[y * 4 * WIDTH + x * 4 + 1] = (char)(app->z_buffer[y * WIDTH + x ] / 4);
-			app->data[y * 4 * WIDTH + x * 4 + 2] = (char)(app->z_buffer[y * WIDTH + x ] / 4);
+			app->data[y * 4 * WIDTH + x * 4] = 1 - (app->z_buffer[y * WIDTH + x ] * 255);
+			app->data[y * 4 * WIDTH + x * 4 + 1] = 1 - (app->z_buffer[y * WIDTH + x ] * 255);
+			app->data[y * 4 * WIDTH + x * 4 + 2] = 1 - (app->z_buffer[y * WIDTH + x ] * 255);
 			x++;
 		}
 		x = 0;
@@ -97,8 +125,11 @@ int	iteration(t_app *app)
 	app->count += 0.01;
 	ft_bzero(app->data, HEIGHT * WIDTH * 4);
 	reset_buffer(app);
-	draw_obj(app, o);
-	if (app->scene.cur_obj->render_type == 9)
+	if (app->all)
+		draw_scene(app);
+	else
+		draw_obj(app, o);
+	if (app->scene.cur_obj->render_type == 8 || (app->render_type == 8 && app->all))
 	{
 		ft_bzero(app->data, HEIGHT * WIDTH * 4);
 		show_z_buffer(app);
@@ -115,11 +146,11 @@ int	mouse_move_hook(int x, int y, t_app *app)
 
 	if (app->mouse_1 == 1)
 	{
-		o->rot = vec4(
-				((app->click.y - y)) / 200 + app->pos_save.x,
-				((x - app->click.x)) / 200 + app->pos_save.y,
-				0, 1)
-			;
+		if (app->maj)
+			app->scene.rot = vec4(((app->click.y - y)) / 200 + app->pos_save2.x, ((x - app->click.x)) / 200 + app->pos_save2.y, 0, 1);
+		else
+			o->rot = vec4(((app->click.y - y)) / 200 + app->pos_save.x, ((x - app->click.x)) / 200 + app->pos_save.y, 0, 1);
+
 		iteration(app);
 	}
 	return (0);
@@ -129,6 +160,8 @@ int	mouse2(int button, int x, int y, t_app *app)
 {
 	t_obj *o = app->scene.cur_obj;
 
+	app->pos_save2 = app->scene.pos;
+	app->pos_save = o->rot;
 	app->mouse_1 = 0;
 	return (0);
 }
@@ -145,14 +178,39 @@ int	key_down(int key, t_app *app)
 	t_obj *o = app->scene.cur_obj;
 	float tmp;
 
-	if (key == 126)
+	if (key == 116)
 	{
-		o->scale.y *= 2;
+		o->scale.y += 1000;
 		iteration(app);
 	}
-	else if (key == 125 && o->scale.y > 1)
+	else if (key == 121)
 	{
-		o->scale.y /= 2;
+		o->scale.y -= 1000;
+		iteration(app);
+	}
+	else if (key == 126)
+	{
+		o->pos.z -= 100;
+		iteration(app);
+	}
+	else if (key == 125)
+	{
+		o->pos.z += 100;
+		iteration(app);
+	}
+	else if (key == 123)
+	{
+		o->pos.x -= 100;
+		iteration(app);
+	}
+	else if (key == 124)
+	{
+		o->pos.x += 100;
+		iteration(app);
+	}
+	else if (key == 36)
+	{
+		app->all = !app->all;
 		iteration(app);
 	}
 	else if (key == 18)
@@ -186,9 +244,28 @@ int	key_down(int key, t_app *app)
 	}
 	else if (key == 19)
 	{
-		o->render_type += (app->maj) ? -1 : 1;
-		o->render_type = (o->render_type < 0) ? 9 : o->render_type;
-		o->render_type = (o->render_type > 9) ? 0 : o->render_type;
+		if (app->all)
+		{
+			app->render_type += (app->maj) ? -1 : 1;
+			app->render_type = (app->render_type < 0) ? 8 : app->render_type;
+			app->render_type = (app->render_type > 8) ? 0 : app->render_type;
+		}
+		else
+		{
+			o->render_type += (app->maj) ? -1 : 1;
+			o->render_type = (o->render_type < 0) ? 8 : o->render_type;
+			o->render_type = (o->render_type > 8) ? 0 : o->render_type;
+		}
+		iteration(app);
+	}
+	else if (key == 1)
+	{
+		insert_sphere(app);
+		iteration(app);
+	}
+	else if (key == 8)
+	{
+		insert_cube(app);
 		iteration(app);
 	}
 	ft_printf("%d\n", key);
@@ -199,18 +276,24 @@ int	key_down(int key, t_app *app)
 int	mouse_hook(int button, int x, int y, t_app *app)
 {
 	t_obj *o = app->scene.cur_obj;
+	t_vec4 *v;
+
+	if (app->maj)
+		v = &app->scene.scale;
+	else
+		v = &o->scale;
 	if (button == 6 || button == 4)
 	{
-		o->scale.x /= 1.2 ;
-		o->scale.y /= 1.2 ;
-		o->scale.z /= 1.2 ;
+		v->x /= 1.2 ;
+		v->y /= 1.2 ;
+		v->z /= 1.2 ;
 		iteration(app);
 	}
 	else if (button == 7 || button == 5)
 	{
-		o->scale.x *= 1.2 ;
-		o->scale.y *= 1.2 ;
-		o->scale.z *= 1.2 ;
+		v->x *= 1.2 ;
+		v->y *= 1.2 ;
+		v->z *= 1.2 ;
 		iteration(app);
 	}
 	else if (button == 1 && app->scene.cam.proj != 0)
@@ -218,6 +301,7 @@ int	mouse_hook(int button, int x, int y, t_app *app)
 		app->mouse_1 = 1;
 		app->click.x = x;
 		app->click.y = y;
+		app->pos_save2 = app->scene.pos;
 		app->pos_save = o->rot;
 	}
 	if (button == 1)
@@ -243,6 +327,7 @@ void	load_all_fdf(t_app *app)
 	}
 }
 
+
 void	app_run(t_app *app)
 {
 	t_obj *o;
@@ -253,23 +338,27 @@ void	app_run(t_app *app)
 	o->scale = vec4(800, 800, 800, 1);
 	o->rot = vec4(0, -M_PI / 4, 0, 1);
 */
-	o = app->scene.last_obj;
-	o = new_obj(app,make_sphere(40, 40));
+	/*o = app->scene.last_obj;
+	o = new_obj(app,make_sphere(80, 80));
 	o->scale = vec4(300, 300, 300, 1);
 	o->rot = vec4(0, -M_PI / 4, 0, 1);
 	o->have_color = 1;
 	o->color = color(200, 50, 50, 0);
+	o->render_type = 7;
 
 	o = new_obj(app,make_cube(40, 40));
 	o->rot = vec4(0, -M_PI / 4, 0, 1);
 	o->scale = vec4(300, 300, 300, 1);
 	o->have_color = 0;
-	o->render_type = 6;
-
+	o->render_type = 7;
+*/
 	app->scene.cur_obj = app->scene.first_obj;
 	app->scene.cam.fov = 70;
 	app->scene.cam.pos = vec4(0, 1000, 1000, 1);
 	app->scene.cam.look = vec4(0, 0, 0, 1);
+	app->scene.cam.near =500;
+	app->scene.cam.far = 1500;
+	app->scene.cam.proj = 2;
 
 	mlx_hook(app->win, 6, (1L<<6), mouse_move_hook, app);
 	mlx_hook(app->win, 5, (1L<<2), &mouse2, app);
@@ -281,6 +370,10 @@ void	app_run(t_app *app)
 //	mlx_put_image_to_window(app->mlx, app->win, app->img, 0, 0);
 
 
+	app->scene.scale = vec4(1, 1, 1, 1);
+	app->scene.rot = vec4(0, 0, 0, 1);
+	app->scene.pos = vec4(0, 0, 0, 1);
+	app->render_type = 7;
 	iteration(app);
 	mlx_loop(app->mlx);
 }

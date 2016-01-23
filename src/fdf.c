@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 18:45:24 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 03:25:17 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 04:47:08 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	fdf_lst_to_array(t_obj *o, t_fdf *fdf)
 
 	i = 0;
 	o->vecs = (t_vec4*)ft_memalloc(sizeof(t_vec4) * fdf->lst.size);
-	if (!o->vecs)
+	o->vecs_orig = (t_vec4*)ft_memalloc(sizeof(t_vec4) * fdf->lst.size);
+	if (!o->vecs_orig)
 		exit (1);
 	tmp = fdf->lst.first;
 	while (i < fdf->lst.size && tmp)
@@ -95,7 +96,7 @@ void	fdf_lst_to_array(t_obj *o, t_fdf *fdf)
 		tmp->x =  tmp->x /( (fdf->lst.x > fdf->lst.y) ? fdf->lst.x : fdf->lst.y);
 		tmp->z =  tmp->z / ((fdf->lst.x > fdf->lst.y) ? fdf->lst.x : fdf->lst.y);
 		tmp->y =  tmp->y / ((fdf->lst.x > fdf->lst.y) ? fdf->lst.x : fdf->lst.y);
-		o->vecs[i] = *tmp;
+		o->vecs_orig[i] = *tmp;
 		i++;
 		tmp = tmp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 06:18:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 03:31:32 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 07:44:00 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	draw_trgle(t_app *app, t_trgle t)
 	//ft_printf("%f %f %f\n", t.normal.x, t.normal.y, t.normal.z);
 //	ft_printf("%f\n", prod_scal(normalize(t.normal), normalize(light)));
 	lum = prod_scal(normalize(t.normal), normalize(light));
-	if (lum < 0.6)
-		lum = 0.6;
+	if (lum < 0.1)
+		lum = 0.1;
 	t.p[0]->color.r *= lum;
 	t.p[0]->color.g *= lum;
 	t.p[0]->color.b *= lum;
@@ -82,7 +82,6 @@ void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
 		{
 			v[i].color = t.color;
 		}
-		v[i] = muli_mat4x4_vec4(o->mat, v[i]);
 		tmp[i] = v[i];
 		if (proj == 2)
 			v[i] = perspective_vec4(app, v[i]);

@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:14:54 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/22 02:57:00 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 06:37:07 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,23 @@
 static	void	make_cube_vertex(t_obj *o)
 {
 	o->vecs = (t_vec4 *)ft_memalloc(sizeof(t_vec4) * 8);
-	if (o->vecs == 0)
+	o->vecs_orig = (t_vec4 *)ft_memalloc(sizeof(t_vec4) * 8);
+	if (o->vecs == 0 || o->vecs_orig == 0)
 		exit (1);
-	o->vecs[0] = vec4(-0.5, 0.5, -0.5, 1.0);
-	o->vecs[1] = vec4(0.5, 0.5, -0.5, 1.0);
-	o->vecs[2] = vec4(-0.5, -0.5, -0.5, 1.0);
-	o->vecs[3] = vec4(0.5, -0.5, -0.5, 1.0);
-	o->vecs[4] = vec4(-0.5, 0.5, 0.5, 1.0);
-	o->vecs[5] = vec4(0.5, 0.5, 0.5, 1.0);
-	o->vecs[6] = vec4(-0.5, -0.5, 0.5, 1.0);
-	o->vecs[7] = vec4(0.5, -0.5, 0.5, 1.0);
-	o->vecs[2].color = color(255, 0, 0, 0);
-	o->vecs[0].color = color(0, 255, 0, 0);
-	o->vecs[6].color = color(0, 0, 255, 0);
-	o->vecs[7].color = color(0, 255, 255, 0);
-	o->vecs[4].color = color(0, 0, 255, 0);
-	o->vecs[5].color = color(255, 0, 255, 0);
+	o->vecs_orig[0] = vec4(-0.5, 0.5, -0.5, 1.0);
+	o->vecs_orig[1] = vec4(0.5, 0.5, -0.5, 1.0);
+	o->vecs_orig[2] = vec4(-0.5, -0.5, -0.5, 1.0);
+	o->vecs_orig[3] = vec4(0.5, -0.5, -0.5, 1.0);
+	o->vecs_orig[4] = vec4(-0.5, 0.5, 0.5, 1.0);
+	o->vecs_orig[5] = vec4(0.5, 0.5, 0.5, 1.0);
+	o->vecs_orig[6] = vec4(-0.5, -0.5, 0.5, 1.0);
+	o->vecs_orig[7] = vec4(0.5, -0.5, 0.5, 1.0);
+	o->vecs_orig[2].color = color(255, 0, 0, 0);
+	o->vecs_orig[0].color = color(0, 255, 0, 0);
+	o->vecs_orig[6].color = color(0, 0, 255, 0);
+	o->vecs_orig[7].color = color(0, 255, 255, 0);
+	o->vecs_orig[4].color = color(0, 0, 255, 0);
+	o->vecs_orig[5].color = color(255, 0, 255, 0);
 	o->nbr_vecs = 8;
 }
 

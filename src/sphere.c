@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/18 08:40:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 01:26:15 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 06:02:43 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,17 @@ static	void	make_sphere_vertex(t_obj *o, int row, int col)
 	i = 0;
 	j = 0;
 	o->vecs = (t_vec4 *)ft_memalloc(sizeof(t_vec4) * o->nbr_vecs);
-	if (o->vecs == 0)
+	o->vecs_orig = (t_vec4 *)ft_memalloc(sizeof(t_vec4) * o->nbr_vecs);
+	if (o->vecs == 0 || o->vecs_orig == 0)
 		exit (1);
-	o->vecs[0] = vec4(0, 1, 0, 1);
-	o->vecs[1] = vec4(0, -1, 0, 1);
+	o->vecs_orig[0] = vec4(0, 1, 0, 1);
+	o->vecs_orig[1] = vec4(0, -1, 0, 1);
 	while (i < row)
 	{
 		while (j < col)
 		{
-			o->vecs[i * row + j  + 2] = vec4(sin((i + 1) * M_PI / row) * cos((j + 1) * 2 * M_PI / col), cos((i + 1) * M_PI / row), sin((i + 1) * M_PI / row) * sin((j + 1) * 2 * M_PI / col), 1);
-		o->vecs[i * row + j  + 2].color = color(rand() % 256, rand() % 256, rand() % 256, 255);
+			o->vecs_orig[i * row + j  + 2] = vec4(sin((i + 1) * M_PI / row) * cos((j + 1) * 2 * M_PI / col), cos((i + 1) * M_PI / row), sin((i + 1) * M_PI / row) * sin((j + 1) * 2 * M_PI / col), 1);
+		o->vecs_orig[i * row + j  + 2].color = color(rand() % 256, rand() % 256, rand() % 256, 255);
 			j++;
 		}
 		j = 0;

@@ -6,20 +6,31 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:58:11 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 04:44:06 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 09:29:53 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	do_transform(t_obj *obj)
+void	do_transform(t_app *app, t_obj *obj, t_matrix4x4 mat)
 {
 	int i;
+	float proj;
 
 	i = 0;
+	proj = app->scene.cam.proj;
+	obj->mat = scale_mat(obj->scale);
+//	obj->mat = muli_mat4x4(scale_mat(obj->scale), mat);
+	obj->mat = muli_mat4x4(rot_y_mat(obj->rot.y), obj->mat);
+	obj->mat = muli_mat4x4(rot_x_mat(obj->rot.x), obj->mat);
+	obj->mat = muli_mat4x4(rot_z_mat(obj->rot.z), obj->mat);
+	obj->mat = muli_mat4x4(translate_mat(obj->pos), obj->mat);
+	obj->mat = muli_mat4x4(mat, obj->mat);
+	obj->mat = muli_mat4x4(cam_mat(app), obj->mat);
 	while (i < obj->nbr_vecs)
 	{
-
+		obj->vecs[i] = muli_mat4x4_vec4(obj->mat, obj->vecs_orig[i]);
+		i++;
 	}
 }
 
@@ -55,8 +66,8 @@ void	draw_line_obj(t_app *app, t_obj *obj, t_vec4 v1, t_vec4 v2)
 	t_line l;
 
 	proj = app->scene.cam.proj;
-	v1 = muli_mat4x4_vec4(obj->mat, v1);
-	v2 = muli_mat4x4_vec4(obj->mat, v2);
+//	v1 = muli_mat4x4_vec4(obj->mat, v1);
+//	v2 = muli_mat4x4_vec4(obj->mat, v2);
 	if (proj == 2)
 	{
 		v1 = perspective_vec4(app, v1);
@@ -73,25 +84,18 @@ void	draw_line_obj(t_app *app, t_obj *obj, t_vec4 v1, t_vec4 v2)
 	draw_line(app, &l);
 }
 
-void	draw_all_line(t_app *app, t_obj *obj)
+void	draw_all_line(t_app *app, t_obj *obj, int render_type)
 {
 	unsigned int i;
-
-	obj->mat = scale_mat(obj->scale);
-	obj->mat = muli_mat4x4(rot_y_mat(obj->rot.y), obj->mat);
-	obj->mat = muli_mat4x4(rot_x_mat(obj->rot.x), obj->mat);
-	obj->mat = muli_mat4x4(rot_z_mat(obj->rot.z), obj->mat);
-	obj->mat = muli_mat4x4(translate_mat(obj->pos), obj->mat);
-	obj->mat = muli_mat4x4(cam_mat(app), obj->mat);
 	i = 0;
-	if (obj->render_type == 1 || obj->render_type == 3)
+	if (render_type == 1 || render_type == 3)
 		while (i < obj->nbr_lines)
 		{
 			draw_line_obj(app, obj, *obj->lines[i].p[0], *obj->lines[i].p[1]);
 			i++;
 		}
 	i = 0;
-	if (obj->render_type == 2 || obj->render_type == 3)
+	if (render_type == 2 || render_type == 3)
 		while (i < obj->nbr_lines2)
 		{
 			draw_line_obj(app, obj, *obj->lines2[i].p[0], *obj->lines2[i].p[1]);
@@ -106,7 +110,7 @@ void	draw_all_vec4(t_app *app, t_obj *obj)
 	float proj;
 
 	i = 0;
-
+/*
 	proj = app->scene.cam.proj;
 	
 	obj->mat = scale_mat(obj->scale);
@@ -115,14 +119,14 @@ void	draw_all_vec4(t_app *app, t_obj *obj)
 	obj->mat = muli_mat4x4(rot_z_mat(obj->rot.z), obj->mat);
 	obj->mat = muli_mat4x4(translate_mat(obj->pos), obj->mat);
 	obj->mat = muli_mat4x4(cam_mat(app), obj->mat);
-	while (i < obj->nbr_vecs)
+*/	while (i < obj->nbr_vecs)
 	{
-		v = obj->vecs[i];
-		v = muli_mat4x4_vec4(obj->mat, v);
+//		v = obj->vecs[i];
+//		v = muli_mat4x4_vec4(obj->mat, v);
 		if (proj == 2)
-			v = perspective_vec4(app, v);
+			obj->vecs[i] = perspective_vec4(app, obj->vecs[i] );
 
-		draw_dot(app, v, obj);
+		draw_dot(app, obj->vecs[i], obj);
 		i++;
 	}
 }
@@ -130,20 +134,25 @@ void	draw_all_vec4(t_app *app, t_obj *obj)
 void	draw_obj(t_app *app, t_obj *obj)
 {
 	unsigned int i;
+	int render_type;
 
 	i = 0;
-	if (obj->render_type == 0)
-		draw_all_vec4(app, obj);
-	else if (obj->render_type >= 1 && obj->render_type <= 3)
-		draw_all_line(app, obj);
+	if (app->all)
+	{
+		do_transform(app, obj, app->scene.mat);
+		render_type = app->render_type;
+	}
 	else
 	{
-		obj->mat = scale_mat(obj->scale);
-		obj->mat = muli_mat4x4(rot_y_mat(obj->rot.y), obj->mat);
-		obj->mat = muli_mat4x4(rot_x_mat(obj->rot.x), obj->mat);
-		obj->mat = muli_mat4x4(rot_z_mat(obj->rot.z), obj->mat);
-		obj->mat = muli_mat4x4(translate_mat(obj->pos), obj->mat);
-		obj->mat = muli_mat4x4(cam_mat(app), obj->mat);
+		do_transform(app, obj, identity_mat4x4());
+		render_type = obj->render_type;
+	}
+	if (render_type == 0)
+		draw_all_vec4(app, obj);
+	else if (render_type >= 1 && render_type <= 3)
+		draw_all_line(app, obj, render_type);
+	else
+	{
 		while (i < obj->nbr_trgles)
 		{
 			if (obj->have_color == 1)
@@ -164,10 +173,7 @@ void	draw_all_obj(t_app *app)
 	tmp = app->scene.first_obj;
 	while (tmp)
 	{
-		if (tmp->render_type == 1)
-			draw_all_vec4(app, tmp);
-		else
-			draw_all_line(app, tmp);
+		draw_obj(app, tmp);
 		tmp = tmp->next;
 	}
 }
