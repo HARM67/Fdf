@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:38:35 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 10:04:31 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 12:01:35 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	reset_buffer(t_app *app)
 	while (i < HEIGHT * WIDTH)
 	{
 		app->z_buffer[i] = 1.0;
+		app->ray[i] = 0;
 		i++;
 	}
 }
@@ -306,7 +307,12 @@ int	mouse_hook(int button, int x, int y, t_app *app)
 	}
 	if (button == 1)
 	{
-		ft_printf("%f\n", app->z_buffer[x + (y * WIDTH)]);
+		if (app->ray[x + (y * WIDTH)])
+			app->scene.cur_obj = app->ray[x + (y * WIDTH)];
+		app->pos_save2 = app->scene.pos;
+		app->pos_save = app->scene.cur_obj->rot;
+		iteration(app);
+//		ft_printf("%f\n", app->z_buffer[x + (y * WIDTH)]);
 	}
 	return (0);
 }
@@ -333,6 +339,7 @@ void	app_run(t_app *app)
 	t_obj *o;
 
 	load_all_fdf(app);
+	app->ray = (t_obj**)ft_memalloc(sizeof(t_obj*) * HEIGHT * WIDTH);
 /*
 	o = new_obj(app,read_fdf(app, "pyramide.fdf"));
 	o->scale = vec4(800, 800, 800, 1);
@@ -357,7 +364,7 @@ void	app_run(t_app *app)
 	app->scene.cam.pos = vec4(0, 1000, 1000, 1);
 	app->scene.cam.look = vec4(0, 0, 0, 1);
 	app->scene.cam.near =500;
-	app->scene.cam.far = 1500;
+	app->scene.cam.far = 4000;
 	app->scene.cam.proj = 2;
 
 	mlx_hook(app->win, 6, (1L<<6), mouse_move_hook, app);

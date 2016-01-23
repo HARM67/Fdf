@@ -6,14 +6,14 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 09:26:22 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 11:48:44 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define WIDTH 1280
-# define HEIGHT 1024
+# define WIDTH 1024
+# define HEIGHT 768
 # include "mlx.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
@@ -145,6 +145,7 @@ struct						s_app
 	int						*img;
 	char					*data;
 	float					z_buffer[WIDTH * HEIGHT];
+	t_obj					**ray;
 	int						bpp;
 	int						sizeline;
 	int						endian;
@@ -178,10 +179,10 @@ t_vec4						normalize(t_vec4 v);
 // line.c
 t_line						line(t_vec4 *a, t_vec4 *b);
 // draw_vec4.c
-void						draw_vec4(t_app *app, t_vec4 tmp);
+void						draw_vec4(t_app *app, t_vec4 tmp, t_obj *obj);
 
 // draw_line.c
-void						draw_line(t_app *app, t_line *line);
+void						draw_line(t_app *app, t_line *line, t_obj *o);
 
 // trgle.c
 t_trgle						trgle(t_vec4 *v1, t_vec4 *v2, t_vec4 *v3);
@@ -189,8 +190,8 @@ t_obj						*make_trgle(t_vec4 v1, t_vec4 v2, t_vec4 v3);
 
 // draw_trgle.c
 void						draw_trans_wired(t_app *app, t_trgle t, t_obj *o);
-void						draw_trgle_wired(t_app *app, t_trgle t, int diag);
-void						draw_trgle(t_app *app, t_trgle t);
+void						draw_trgle_wired(t_app *app, t_trgle t, int diag, t_obj *o);
+void						draw_trgle(t_app *app, t_trgle t, t_obj *o);
 int							check_vec4(t_vec4 v);
 
 // op_mat4x4.c
@@ -238,7 +239,7 @@ t_vec4						prod_vec(t_vec4 a, t_vec4 b);
 /*
 ** rasterization.c
 */
-void						rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3);
+void						rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3, t_obj *o);
 
 /*
 ** fdf.c
@@ -263,4 +264,8 @@ t_matrix4x4					rot_z_mat(float rot_z);
 
 void						do_scene_transform(t_app *app, t_scene *scn);
 void						draw_scene(t_app *app);
+
+
+// draw_vec4.c
+void						ray_trace(t_app *app, t_vec4 tmp, t_obj *obj);
 #endif

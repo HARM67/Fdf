@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/17 13:46:53 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 00:19:43 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 10:34:23 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_vec4	*middle(t_vec4 *v1, t_vec4 *v2, t_vec4 *v3)
 	return (v3);
 }
 
-void	rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3)
+void	rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3, t_obj *o)
 {
 	t_vec4 u;
 	t_vec4 m;
@@ -76,7 +76,7 @@ void	rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3)
 		a.color = color_pos(m.color, d.color, cursor / (m.y - d.y));
 		b.color = color_pos(u.color, d.color, cursor / (u.y - d.y));
 		l = line (&a, &b);
-		draw_line(app, &l);
+		draw_line(app, &l, o);
 		cursor += 1;
 	}
 	cursor2 = 0;
@@ -87,7 +87,7 @@ void	rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3)
 		a.color = color_pos(u.color, m.color, cursor2 / (u.y - m.y));
 		b.color = color_pos(u.color, d.color, cursor / (u.y - d.y));
 		l = line (&a, &b);
-		draw_line(app, &l);
+		draw_line(app, &l, o);
 		cursor += 1;
 		cursor2 += 1;
 	}

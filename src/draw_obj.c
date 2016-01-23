@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:58:11 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 09:29:53 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 10:33:33 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_dot(t_app *app, t_vec4 v, t_obj *o)
 		{
 			tmp = vec4(v.x - 1 + i, v.y - 1 + j, v.z, v.w);
 			tmp.color = v.color;
-			draw_vec4(app, tmp);
+			draw_vec4(app, tmp, o);
 			j++;
 		}
 		j = 0;
@@ -81,7 +81,7 @@ void	draw_line_obj(t_app *app, t_obj *obj, t_vec4 v1, t_vec4 v2)
 	v2.y += HEIGHT / 2;
 	if (!check_vec4(v1) && !check_vec4(v2))
 		return ;
-	draw_line(app, &l);
+	draw_line(app, &l, obj);
 }
 
 void	draw_all_line(t_app *app, t_obj *obj, int render_type)

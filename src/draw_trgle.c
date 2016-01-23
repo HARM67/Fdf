@@ -6,14 +6,14 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 06:18:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 07:44:00 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 11:58:24 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 
-void	draw_trgle_wired(t_app *app, t_trgle t, int diag)
+void	draw_trgle_wired(t_app *app, t_trgle t, int diag, t_obj *o)
 {
 	t_line l1;
 	t_line l2;
@@ -22,25 +22,28 @@ void	draw_trgle_wired(t_app *app, t_trgle t, int diag)
 	l1 = line(t.p[0], t.p[1]);
 	l2 = line(t.p[1], t.p[2]);
 	l3 = line(t.p[2], t.p[0]);
-	draw_line(app, &l1);
-	draw_line(app, &l2);
+	draw_line(app, &l1, o);
+	draw_line(app, &l2, o);
 	if (diag)
-		draw_line(app, &l3);
+		draw_line(app, &l3, o);
 }
 
-void	draw_trgle(t_app *app, t_trgle t)
+void	draw_trgle(t_app *app, t_trgle t, t_obj *o)
 {
 	t_vec4 light;
 	float lum;
+	t_vec4 normal;
 
 	light.y = 1;
 	light.x = -0.5;
-	light.z = 0.4;
-
-
-	//ft_printf("%f %f %f\n", t.normal.x, t.normal.y, t.normal.z);
-//	ft_printf("%f\n", prod_scal(normalize(t.normal), normalize(light)));
-	lum = prod_scal(normalize(t.normal), normalize(light));
+	light.z = 0.6;
+	light.w = 0;
+	normal = normalize(t.normal);
+	if (prod_scal(normal, normalize(inverse(app->scene.cam.pos))) > 0)
+		return ;
+	light = normalize(light);
+	muli_mat4x4_vec4(app->scene.mat, light);
+	lum = prod_scal(normalize(t.normal), light);
 	if (lum < 0.1)
 		lum = 0.1;
 	t.p[0]->color.r *= lum;
@@ -52,7 +55,7 @@ void	draw_trgle(t_app *app, t_trgle t)
 	t.p[2]->color.r *= lum;
 	t.p[2]->color.g *= lum;
 	t.p[2]->color.b *= lum;
-	rasterization(app, *t.p[0], *t.p[1], *t.p[2]);
+	rasterization(app, *t.p[0], *t.p[1], *t.p[2], o);
 }
 
 int	check_vec4(t_vec4 v)
@@ -94,11 +97,12 @@ void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
 	rt.normal = prod_vec(sous_vec4(tmp[1], tmp[0]), sous_vec4(tmp[2], tmp[0]));
 	if (!temoin)
 		return ;
-	if (o->render_type == 4 || o->render_type == 5)
-		draw_trgle_wired(app, rt, o->render_type - 4);
+	if (((o->render_type == 4 || o->render_type == 5) && !app->all) ||
+			app->render_type == 4 || app->render_type == 5)
+		draw_trgle_wired(app, rt, o->render_type - 4, o);
 	else
 	{
-		draw_trgle(app, rt);
-		draw_trgle_wired(app, rt, o->render_type - 4);
+		draw_trgle(app, rt, o);
+		draw_trgle_wired(app, rt, (app->all) ? app->render_type - 4 : o->render_type - 4, o);
 	}
 }
