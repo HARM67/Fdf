@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 06:18:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 11:58:24 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/23 12:11:03 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	draw_trgle(t_app *app, t_trgle t, t_obj *o)
 	light.z = 0.6;
 	light.w = 0;
 	normal = normalize(t.normal);
-	if (prod_scal(normal, normalize(inverse(app->scene.cam.pos))) > 0)
-		return ;
+	//if (prod_scal(normal, normalize(inverse(app->scene.cam.pos))) > 0.5)
+	//	return ;
 	light = normalize(light);
 	muli_mat4x4_vec4(app->scene.mat, light);
-	lum = prod_scal(normalize(t.normal), light);
+	lum = prod_scal(normal, light);
 	if (lum < 0.1)
 		lum = 0.1;
 	t.p[0]->color.r *= lum;
