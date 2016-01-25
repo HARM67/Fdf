@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 18:45:24 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 04:47:08 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/25 08:53:53 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,20 @@ void	fdf_lst_to_array(t_obj *o, t_fdf *fdf)
 	{
 		c = (float)(tmp->y / fdf->max);
 		
-		tmp->color = color(55 + 200 * c,55 + 200 * c,55 + 200 * c, 255);
-		if (c <= 0.003)
+		tmp->color = color(175 + 55 * c,125 + 100 * c,75 + 100 * c, 255);
+		if (c < 0)
+			tmp->color = color(0, 0, 150, 255);
+		else if (c <= 0.001)
 		{
-			tmp->color = color(0, 0, 100, 255);
+			tmp->color = color(20 + (1000000 * c),30 + (1000000 * c), 150 + (1000000 * c), 255);
 		}
 		/*else if (c > 0.003 && c <= 0.01)
 		{
 			tmp->color = color(50, 100, 50, 255);
 		}*/
-		else if (c > 0.003 && c <= 0.2)
+		else if (c > 0.002 && c <= 0.2)
 		{
-			tmp->color = color(75, 75 + (unsigned char)(c * 300), 20, 255);
+			tmp->color = color(75 - (unsigned char)(c * 100 ), 75 + (unsigned char)(c * 400), 20, 255);
 		}
 		tmp->y /= fdf->max;
 		tmp->x -= fdf->lst.x / 2;

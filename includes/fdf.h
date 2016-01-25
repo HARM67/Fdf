@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 11:48:44 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/25 08:08:59 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_vec4_lst	t_vec4_lst;
 typedef struct s_line		t_line;
 typedef struct s_trgle		t_trgle;
 typedef struct s_matrix4x4	t_matrix4x4;
+typedef struct s_palette	t_palette;
 typedef struct s_obj		t_obj;
 typedef struct s_cam		t_cam;
 typedef struct s_fdf		t_fdf;
@@ -77,6 +78,7 @@ struct						s_trgle
 {
 	t_vec4					*p[3];
 	t_vec4					normal;
+	t_vec4					normal2;
 	t_color					color;
 	char					have_color;
 };
@@ -84,6 +86,10 @@ struct						s_trgle
 struct						s_matrix4x4
 {
 	float					n[4][4];
+};
+
+struct						s_palette
+{
 };
 
 struct						s_obj
@@ -156,6 +162,15 @@ struct						s_app
 	int						maj;
 	char					all;
 	char					render_type;
+	t_color					background;
+	int						a_depth;
+	int						show_depth;
+	int						a_light;
+	float					light_coef;
+	int						a_culling;
+	int						rem_no_visible;
+	float					ambient;
+	unsigned int			nb_trgl_draw;
 };
 
 // app.c

@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:58:11 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 10:33:33 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/25 08:12:40 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	do_transform(t_app *app, t_obj *obj, t_matrix4x4 mat)
 	i = 0;
 	proj = app->scene.cam.proj;
 	obj->mat = scale_mat(obj->scale);
-//	obj->mat = muli_mat4x4(scale_mat(obj->scale), mat);
 	obj->mat = muli_mat4x4(rot_y_mat(obj->rot.y), obj->mat);
 	obj->mat = muli_mat4x4(rot_x_mat(obj->rot.x), obj->mat);
 	obj->mat = muli_mat4x4(rot_z_mat(obj->rot.z), obj->mat);
@@ -43,7 +42,6 @@ void	draw_dot(t_app *app, t_vec4 v, t_obj *o)
 
 	i = 0;
 	j = 0;
-	//v = translate_vec4(vec4(WIDTH / 2, HEIGHT / 2, 1.0, 1.0), v);
 	v.x += WIDTH / 2;
 	v.y += HEIGHT / 2;
 	while (i < 3)
@@ -66,13 +64,6 @@ void	draw_line_obj(t_app *app, t_obj *obj, t_vec4 v1, t_vec4 v2)
 	t_line l;
 
 	proj = app->scene.cam.proj;
-//	v1 = muli_mat4x4_vec4(obj->mat, v1);
-//	v2 = muli_mat4x4_vec4(obj->mat, v2);
-	if (proj == 2)
-	{
-		v1 = perspective_vec4(app, v1);
-		v2 = perspective_vec4(app, v2);
-	}
 	l.p[0] = &v1;
 	l.p[1] = &v2;
 	v1.x += WIDTH / 2;
@@ -86,7 +77,18 @@ void	draw_line_obj(t_app *app, t_obj *obj, t_vec4 v1, t_vec4 v2)
 
 void	draw_all_line(t_app *app, t_obj *obj, int render_type)
 {
+	float proj;
 	unsigned int i;
+
+	i = 0;
+	proj = app->scene.cam.proj;
+	while (i < obj->nbr_vecs)
+	{
+		if (proj == 2)
+			obj->vecs[i] = perspective_vec4(app, obj->vecs[i] );
+		obj->vecs[i].z = (obj->vecs[i].z - app->scene.cam.near) / app->scene.cam.far;
+		i++;
+	}
 	i = 0;
 	if (render_type == 1 || render_type == 3)
 		while (i < obj->nbr_lines)
@@ -109,22 +111,13 @@ void	draw_all_vec4(t_app *app, t_obj *obj)
 	t_vec4 v;
 	float proj;
 
-	i = 0;
-/*
 	proj = app->scene.cam.proj;
-	
-	obj->mat = scale_mat(obj->scale);
-	obj->mat = muli_mat4x4(rot_y_mat(obj->rot.y), obj->mat);
-	obj->mat = muli_mat4x4(rot_x_mat(obj->rot.x), obj->mat);
-	obj->mat = muli_mat4x4(rot_z_mat(obj->rot.z), obj->mat);
-	obj->mat = muli_mat4x4(translate_mat(obj->pos), obj->mat);
-	obj->mat = muli_mat4x4(cam_mat(app), obj->mat);
-*/	while (i < obj->nbr_vecs)
+	i = 0;
+	while (i < obj->nbr_vecs)
 	{
-//		v = obj->vecs[i];
-//		v = muli_mat4x4_vec4(obj->mat, v);
 		if (proj == 2)
 			obj->vecs[i] = perspective_vec4(app, obj->vecs[i] );
+		obj->vecs[i].z = (obj->vecs[i].z - app->scene.cam.near) / app->scene.cam.far;
 
 		draw_dot(app, obj->vecs[i], obj);
 		i++;
@@ -141,7 +134,7 @@ void	draw_obj(t_app *app, t_obj *obj)
 	{
 		do_transform(app, obj, app->scene.mat);
 		render_type = app->render_type;
-	}
+		}
 	else
 	{
 		do_transform(app, obj, identity_mat4x4());

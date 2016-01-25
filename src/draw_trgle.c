@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 06:18:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 12:11:03 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/25 08:09:21 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,34 @@ void	draw_trgle(t_app *app, t_trgle t, t_obj *o)
 	t_vec4 light;
 	float lum;
 	t_vec4 normal;
+	t_vec4 normal2;
 
 	light.y = 1;
 	light.x = -0.5;
-	light.z = 0.6;
+	light.z = 0.5;
 	light.w = 0;
-	normal = normalize(t.normal);
-	//if (prod_scal(normal, normalize(inverse(app->scene.cam.pos))) > 0.5)
-	//	return ;
-	light = normalize(light);
-	muli_mat4x4_vec4(app->scene.mat, light);
-	lum = prod_scal(normal, light);
-	if (lum < 0.1)
-		lum = 0.1;
-	t.p[0]->color.r *= lum;
-	t.p[0]->color.g *= lum;
-	t.p[0]->color.b *= lum;
-	t.p[1]->color.r *= lum;
-	t.p[1]->color.g *= lum;
-	t.p[1]->color.b *= lum;
-	t.p[2]->color.r *= lum;
-	t.p[2]->color.g *= lum;
-	t.p[2]->color.b *= lum;
+
+	normal2 = normalize(t.normal2);
+	if (prod_scal(normal2, vec4(0, 0, 1, 0)) < 0 && app->a_culling)
+		return ;
+	if (app->a_light)
+	{
+		normal = normalize(t.normal);
+		light = normalize(light);
+		lum =  prod_scal(normal, light) * app->light_coef;
+		if (lum < app->ambient)
+			lum = app->ambient;
+		t.p[0]->color.r *= lum;
+		t.p[0]->color.g *= lum;
+		t.p[0]->color.b *= lum;
+		t.p[1]->color.r *= lum;
+		t.p[1]->color.g *= lum;
+		t.p[1]->color.b *= lum;
+		t.p[2]->color.r *= lum;
+		t.p[2]->color.g *= lum;
+		t.p[2]->color.b *= lum;
+	}
+	app->nb_trgl_draw++;
 	rasterization(app, *t.p[0], *t.p[1], *t.p[2], o);
 }
 
@@ -71,6 +77,7 @@ void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
 	t_trgle	rt;
 	t_vec4	v[3];
 	t_vec4	tmp[3];
+	t_vec4	tmp2[3];
 	int i;
 	int temoin;
 	int	proj;
@@ -88,6 +95,8 @@ void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
 		tmp[i] = v[i];
 		if (proj == 2)
 			v[i] = perspective_vec4(app, v[i]);
+		tmp2[i] = v[i];
+		v[i].z = (v[i].z - app->scene.cam.near) / app->scene.cam.far;
 		v[i].x += WIDTH / 2;
 		v[i].y += HEIGHT / 2;
 		temoin += check_vec4(v[i]);
@@ -95,7 +104,8 @@ void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
 		i++;
 	}
 	rt.normal = prod_vec(sous_vec4(tmp[1], tmp[0]), sous_vec4(tmp[2], tmp[0]));
-	if (!temoin)
+	rt.normal2 = prod_vec(sous_vec4(tmp2[1], tmp2[0]), sous_vec4(tmp2[2], tmp2[0]));
+	if (!temoin && app->rem_no_visible)
 		return ;
 	if (((o->render_type == 4 || o->render_type == 5) && !app->all) ||
 			app->render_type == 4 || app->render_type == 5)
