@@ -24,6 +24,7 @@ all:
 		$(SRC_PATH)rasterization.c \
 		$(SRC_PATH)sphere.c \
 		$(SRC_PATH)fdf.c \
+		$(SRC_PATH)fdf2.c \
 		$(SRC_PATH)vec4_lst.c \
 		$(SRC_PATH)mov_mat.c \
 		$(SRC_PATH)draw_scene.c \
@@ -34,4 +35,5 @@ all:
 		$(SRC_PATH)buffer.c \
 		$(SRC_PATH)insert_object.c \
 		$(SRC_PATH)key.c \
+		$(SRC_PATH)key2.c \
 	 	get_next_line.c -I./ft_printf/includes/ -I./includes -L./ft_printf -L./minilibx_macos -framework OpenGL -framework AppKit -lmlx -lftprintf

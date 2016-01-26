@@ -6,12 +6,11 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 06:18:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/25 08:09:21 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 09:42:19 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 void	draw_trgle_wired(t_app *app, t_trgle t, int diag, t_obj *o)
 {
@@ -30,16 +29,15 @@ void	draw_trgle_wired(t_app *app, t_trgle t, int diag, t_obj *o)
 
 void	draw_trgle(t_app *app, t_trgle t, t_obj *o)
 {
-	t_vec4 light;
-	float lum;
-	t_vec4 normal;
-	t_vec4 normal2;
+	float	lum;
+	t_vec4	light;
+	t_vec4	normal;
+	t_vec4	normal2;
 
 	light.y = 1;
 	light.x = -0.5;
 	light.z = 0.5;
 	light.w = 0;
-
 	normal2 = normalize(t.normal2);
 	if (prod_scal(normal2, vec4(0, 0, 1, 0)) < 0 && app->a_culling)
 		return ;
@@ -47,7 +45,7 @@ void	draw_trgle(t_app *app, t_trgle t, t_obj *o)
 	{
 		normal = normalize(t.normal);
 		light = normalize(light);
-		lum =  prod_scal(normal, light) * app->light_coef;
+		lum = prod_scal(normal, light) * app->light_coef;
 		if (lum < app->ambient)
 			lum = app->ambient;
 		t.p[0]->color.r *= lum;
@@ -61,26 +59,25 @@ void	draw_trgle(t_app *app, t_trgle t, t_obj *o)
 		t.p[2]->color.b *= lum;
 	}
 	app->nb_trgl_draw++;
-	rasterization(app, *t.p[0], *t.p[1], *t.p[2], o);
+	rasterization(app, t, o);
 }
 
-int	check_vec4(t_vec4 v)
+int		check_vec4(t_vec4 v)
 {
 	if (v.x < 0 || v.x > WIDTH || v.y < 0 || v.y > HEIGHT || v.z < 0)
 		return (0);
 	return (1);
 }
 
-
-void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
+void	draw_trans(t_app *app, t_trgle t, t_obj *o)
 {
 	t_trgle	rt;
 	t_vec4	v[3];
 	t_vec4	tmp[3];
 	t_vec4	tmp2[3];
-	int i;
-	int temoin;
-	int	proj;
+	int		i;
+	int		temoin;
+	int		proj;
 
 	proj = app->scene.cam.proj;
 	temoin = 0;
@@ -89,9 +86,7 @@ void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
 	{
 		v[i] = *t.p[i];
 		if (t.have_color == 1)
-		{
 			v[i].color = t.color;
-		}
 		tmp[i] = v[i];
 		if (proj == 2)
 			v[i] = perspective_vec4(app, v[i]);
@@ -104,7 +99,8 @@ void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
 		i++;
 	}
 	rt.normal = prod_vec(sous_vec4(tmp[1], tmp[0]), sous_vec4(tmp[2], tmp[0]));
-	rt.normal2 = prod_vec(sous_vec4(tmp2[1], tmp2[0]), sous_vec4(tmp2[2], tmp2[0]));
+	rt.normal2 = prod_vec(sous_vec4(tmp2[1], tmp2[0]),
+			sous_vec4(tmp2[2], tmp2[0]));
 	if (!temoin && app->rem_no_visible)
 		return ;
 	if (((o->render_type == 4 || o->render_type == 5) && !app->all) ||
@@ -113,6 +109,7 @@ void	draw_trans_wired(t_app *app, t_trgle t, t_obj *o)
 	else
 	{
 		draw_trgle(app, rt, o);
-		draw_trgle_wired(app, rt, (app->all) ? app->render_type - 4 : o->render_type - 4, o);
+		draw_trgle_wired(app, rt, (app->all) ? app->render_type - 4 :
+				o->render_type - 4, o);
 	}
 }

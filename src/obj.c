@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 18:31:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/20 23:02:45 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 07:24:16 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_obj	*new_obj(t_app *app, t_obj *o)
 		app->scene.last_obj = o;
 		return (o);
 	}
-	
 	tmp = app->scene.first_obj;
 	while (tmp && tmp->next)
 		tmp = tmp->next;
@@ -31,4 +30,3 @@ t_obj	*new_obj(t_app *app, t_obj *o)
 	app->scene.last_obj = o;
 	return (o);
 }
-

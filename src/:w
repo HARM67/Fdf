@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:34:55 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 08:43:55 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 07:30:10 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,6 @@ int		mouse_up_hook(int button, int x, int y, t_app *app)
 
 void	mouse_press_hook2(int button, int x, int y, t_app *app)
 {
-	if (button == 1 && app->scene.cam.proj != 0 && x > 0 && y > 0 &&
-			x < WIDTH && y < HEIGHT)
-	{
-		app->mouse_1 = 1;
-		app->click.x = x;
-		app->click.y = y;
-		app->pos_save2 = app->scene.rot;
-		app->pos_save = app->scene.cur_obj->rot;
-	}
-}
-
-void	mouse_press_hook3(int button, t_vec4 *v, t_app *app)
-{
 	if (button == 6 || button == 4)
 	{
 		v->x /= 1.2;
@@ -69,6 +56,15 @@ void	mouse_press_hook3(int button, t_vec4 *v, t_app *app)
 		v->y *= 1.2;
 		v->z *= 1.2;
 		render(app);
+	}
+	else if (button == 1 && app->scene.cam.proj != 0 && x > 0 && y > 0 &&
+			x < WIDTH && y < HEIGHT)
+	{
+		app->mouse_1 = 1;
+		app->click.x = x;
+		app->click.y = y;
+		app->pos_save2 = app->scene.rot;
+		app->pos_save = app->scene.cur_obj->rot;
 	}
 }
 
@@ -87,7 +83,6 @@ int		mouse_press_hook(int button, int x, int y, t_app *app)
 		if (app->ray[x + (y * WIDTH)])
 			app->scene.cur_obj = app->ray[x + (y * WIDTH)];
 	}
-	mouse_press_hook3(button, v, app);
 	mouse_press_hook2(button, x, y, app);
 	return (0);
 }

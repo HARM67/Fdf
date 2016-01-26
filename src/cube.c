@@ -6,18 +6,18 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:14:54 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/23 06:37:07 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 09:25:41 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"fdf.h"
+#include "fdf.h"
 
 static	void	make_cube_vertex(t_obj *o)
 {
 	o->vecs = (t_vec4 *)ft_memalloc(sizeof(t_vec4) * 8);
 	o->vecs_orig = (t_vec4 *)ft_memalloc(sizeof(t_vec4) * 8);
 	if (o->vecs == 0 || o->vecs_orig == 0)
-		exit (1);
+		exit(1);
 	o->vecs_orig[0] = vec4(-0.5, 0.5, -0.5, 1.0);
 	o->vecs_orig[1] = vec4(0.5, 0.5, -0.5, 1.0);
 	o->vecs_orig[2] = vec4(-0.5, -0.5, -0.5, 1.0);
@@ -35,14 +35,14 @@ static	void	make_cube_vertex(t_obj *o)
 	o->nbr_vecs = 8;
 }
 
-static void	make_cube_trgles(t_obj *o)
+static void		make_cube_trgles(t_obj *o)
 {
 	int i;
 
 	i = 0;
 	o->trgles = (t_trgle *)ft_memalloc(sizeof(t_trgle) * 12);
 	if (o->trgles == 0)
-		exit (1);
+		exit(1);
 	o->trgles[0] = trgle(&(o->vecs)[1], &(o->vecs)[0], &(o->vecs)[2]);
 	o->trgles[1] = trgle(&(o->vecs)[2], &(o->vecs)[3], &(o->vecs)[1]);
 	o->trgles[2] = trgle(&(o->vecs)[5], &(o->vecs)[1], &(o->vecs)[3]);
@@ -58,7 +58,7 @@ static void	make_cube_trgles(t_obj *o)
 	o->nbr_trgles = 12;
 }
 
-t_obj	*make_cube()
+t_obj			*make_cube(void)
 {
 	t_obj	*o;
 

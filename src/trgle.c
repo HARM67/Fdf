@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 06:09:56 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/17 19:52:50 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 06:58:02 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ t_trgle	trgle(t_vec4 *v1, t_vec4 *v2, t_vec4 *v3)
 	return (rt);
 }
 
+t_vec4	calc_normal(t_trgle t)
+{
+	t_vec4	rt;
+
+	rt = prod_vec(sous_vec4(*t.p[1], *t.p[0]), sous_vec4(*t.p[2], *t.p[0]));
+	return (rt);
+}
+
 t_obj	*make_trgle(t_vec4 v1, t_vec4 v2, t_vec4 v3)
 {
 	t_obj	*rt;
@@ -30,7 +38,7 @@ t_obj	*make_trgle(t_vec4 v1, t_vec4 v2, t_vec4 v3)
 	rt->vecs = (t_vec4*)ft_memalloc(sizeof(t_vec4) * 3);
 	rt->trgles = (t_trgle*)ft_memalloc(sizeof(trgle));
 	if (!rt || !rt->vecs || !rt->trgles)
-		exit (1);
+		exit(1);
 	rt->vecs[0] = v1;
 	rt->vecs[1] = v2;
 	rt->vecs[2] = v3;

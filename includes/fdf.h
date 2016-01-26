@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 04:55:21 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 09:43:07 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,9 +202,11 @@ void						draw_line(t_app *app, t_line *line, t_obj *o);
 // trgle.c
 t_trgle						trgle(t_vec4 *v1, t_vec4 *v2, t_vec4 *v3);
 t_obj						*make_trgle(t_vec4 v1, t_vec4 v2, t_vec4 v3);
+t_vec4						calc_normal(t_trgle t);
+
 
 // draw_trgle.c
-void						draw_trans_wired(t_app *app, t_trgle t, t_obj *o);
+void						draw_trans(t_app *app, t_trgle t, t_obj *o);
 void						draw_trgle_wired(t_app *app, t_trgle t, int diag, t_obj *o);
 void						draw_trgle(t_app *app, t_trgle t, t_obj *o);
 int							check_vec4(t_vec4 v);
@@ -213,6 +215,7 @@ int							check_vec4(t_vec4 v);
 t_matrix4x4					identity_mat4x4(void);
 t_matrix4x4 				muli_mat4x4(t_matrix4x4 a, t_matrix4x4 b);
 t_vec4						muli_mat4x4_vec4(t_matrix4x4 m, t_vec4 v);
+void						do_transform(t_app *app, t_obj *obj, t_matrix4x4 mat);
 
 // movement.c
 t_vec4						translate_vec4(t_vec4 trans, t_vec4 v);
@@ -254,7 +257,7 @@ t_vec4						prod_vec(t_vec4 a, t_vec4 b);
 /*
 ** rasterization.c
 */
-void						rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3, t_obj *o);
+void						rasterization(t_app *app, t_trgle t, t_obj *o);
 
 /*
 ** fdf.c
@@ -262,6 +265,15 @@ void						rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3, t_obj *o);
 t_obj						*read_fdf(t_app *app, char *filename);
 void						load_all_fdf(t_app *app);
 
+/*
+** fdf2.c
+*/
+
+void						clean_fdf(t_fdf *fdf);
+void						fdf_lst_to_array(t_obj *o, t_fdf *fdf);
+void						make_fdf_trgle(t_obj *o, t_fdf *fdf);
+void						make_fdf_line(t_obj *o, t_fdf *fdf);
+void						make_fdf_line2(t_obj *o, t_fdf *fdf);
 /*
 ** vec4_lst.c
 */
@@ -284,6 +296,7 @@ void						draw_scene(t_app *app);
 
 // draw_vec4.c
 void						ray_trace(t_app *app, t_vec4 tmp, t_obj *obj);
+void						draw_all_vec4(t_app *app, t_obj *obj);
 
 /*
 ** scene.c
@@ -325,4 +338,15 @@ void						insert_cube(t_app *app);
 */
 int							key_up(int key, t_app *app);
 int							key_down(int key, t_app *app);
+
+
+
+/*
+** key2.c
+*/
+int							key_up(int key, t_app *app);
+int							key_basic_transform(int key, t_app *app);
+int							key_proj(int key, t_app *app);
+int							key_select(int key, t_app *app);
+int							key_render_type(int key, t_app *app);
 #endif

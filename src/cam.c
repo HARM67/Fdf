@@ -6,13 +6,13 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 18:11:46 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/21 19:07:18 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 09:24:36 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_cam	cam(t_app *app)
+t_cam				cam(t_app *app)
 {
 	t_cam	rt;
 
@@ -23,10 +23,10 @@ t_cam	cam(t_app *app)
 
 static t_matrix4x4	cam_rot(t_app *app)
 {
-	t_vec4	f;
-	t_vec4	s;
-	t_vec4 u;
-	t_matrix4x4 rt;
+	t_vec4		f;
+	t_vec4		s;
+	t_vec4		u;
+	t_matrix4x4	rt;
 
 	f = normalize(sous_vec4(app->scene.cam.pos, app->scene.cam.look));
 	s = normalize(prod_vec(f, vec4(0, -1, 0, 1)));
@@ -56,7 +56,7 @@ static t_matrix4x4	tr(t_vec4 trans)
 	return (m);
 }
 
-t_matrix4x4	cam_mat(t_app *app)
+t_matrix4x4			cam_mat(t_app *app)
 {
 	t_matrix4x4	mat;
 
@@ -64,7 +64,7 @@ t_matrix4x4	cam_mat(t_app *app)
 	return (mat);
 }
 
-t_vec4	do_cam(t_app *app, t_vec4 v)
+t_vec4				do_cam(t_app *app, t_vec4 v)
 {
 	t_vec4		rt;
 	t_matrix4x4	mat;

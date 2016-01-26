@@ -6,15 +6,15 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:15:28 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/21 19:15:37 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 07:25:09 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_matrix4x4 translate_mat(t_vec4 trans)
+t_matrix4x4	translate_mat(t_vec4 trans)
 {
-	t_matrix4x4 m;
+	t_matrix4x4	m;
 
 	m = identity_mat4x4();
 	m.n[0][3] = trans.x;
@@ -26,7 +26,7 @@ t_matrix4x4 translate_mat(t_vec4 trans)
 
 t_matrix4x4	scale_mat(t_vec4 scale)
 {
-	t_matrix4x4 m;
+	t_matrix4x4	m;
 
 	m = identity_mat4x4();
 	m.n[0][0] = scale.x;
@@ -38,7 +38,7 @@ t_matrix4x4	scale_mat(t_vec4 scale)
 
 t_matrix4x4	rot_x_mat(float rot_x)
 {
-	t_matrix4x4 m;
+	t_matrix4x4	m;
 
 	m = identity_mat4x4();
 	m.n[1][1] = cos(rot_x);
@@ -48,9 +48,9 @@ t_matrix4x4	rot_x_mat(float rot_x)
 	return (m);
 }
 
-t_matrix4x4 rot_y_mat(float rot_y)
+t_matrix4x4	rot_y_mat(float rot_y)
 {
-	t_matrix4x4 m;
+	t_matrix4x4	m;
 
 	m = identity_mat4x4();
 	m.n[0][0] = cos(rot_y);
@@ -62,7 +62,7 @@ t_matrix4x4 rot_y_mat(float rot_y)
 
 t_matrix4x4	rot_z_mat(float rot_z)
 {
-	t_matrix4x4 m;
+	t_matrix4x4	m;
 
 	m = identity_mat4x4();
 	m.n[0][0] = cos(rot_z);

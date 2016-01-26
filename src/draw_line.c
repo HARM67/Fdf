@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   ->y: mfroeh->y <mfroeh->y@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/14 03:20:05 ->y mfroeh->y          #+#    #+#             */
-/*   Updated: 2016/01/25 06:06:27 by mfroehly         ###   ########.fr       */
+/*   Created: 2016/01/26 09:27:50 by mfroehly          #+#    #+#             */
+/*   Updated: 2016/01/26 09:27:52 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	draw_line_y(t_app *app, t_vec4 tmp, t_line *line, t_obj *o)
 {
-	float f;
+	float	f;
 	t_vec4	tmp2;
 
 	f = 0;
@@ -22,24 +22,28 @@ void	draw_line_y(t_app *app, t_vec4 tmp, t_line *line, t_obj *o)
 	{
 		if ((*line->p[0]).y < (*line->p[1]).y)
 		{
-			tmp2 = vec4((*line->p[1]).x + ((-f / tmp.y) * tmp.x), (*line->p[1]).y - f,
-						(*line->p[1]).z + ((-f / tmp.y) * tmp.z), 0);
-			tmp2.color = color_pos((*line->p[0]).color, (*line->p[1]).color, -f / tmp.y);
+			tmp2 = vec4((*line->p[1]).x + ((-f / tmp.y) * tmp.x),
+					(*line->p[1]).y - f,
+					(*line->p[1]).z + ((-f / tmp.y) * tmp.z), 0);
+			tmp2.color = color_pos((*line->p[0]).color, (*line->p[1]).color,
+					-f / tmp.y);
 		}
 		else if ((*line->p[0]).y > (*line->p[1]).y)
 		{
-			tmp2 = vec4((*line->p[1]).x + ((f / tmp.y) * tmp.x), (*line->p[1]).y + f, (*line->p[1]).z + ((f / tmp.y) * tmp.z), 0);
-			tmp2.color = color_pos((*line->p[0]).color, (*line->p[1]).color, f / tmp.y);
+			tmp2 = vec4((*line->p[1]).x + ((f / tmp.y) * tmp.x),
+					(*line->p[1]).y + f,
+					(*line->p[1]).z + ((f / tmp.y) * tmp.z), 0);
+			tmp2.color = color_pos((*line->p[0]).color, (*line->p[1]).color,
+					f / tmp.y);
 		}
 		f += 1;
 		draw_vec4(app, tmp2, o);
 	}
 }
 
-
 void	draw_line_x(t_app *app, t_vec4 tmp, t_line *line, t_obj *o)
 {
-	float f;
+	float	f;
 	t_vec4	tmp2;
 
 	f = 0;
@@ -47,13 +51,19 @@ void	draw_line_x(t_app *app, t_vec4 tmp, t_line *line, t_obj *o)
 	{
 		if ((*line->p[0]).x < (*line->p[1]).x)
 		{
-			tmp2 = vec4((*line->p[1]).x - f, (*line->p[1]).y + ((-f / tmp.x) * tmp.y), (*line->p[1]).z + ((-f / tmp.x) * tmp.z),  0);
-			tmp2.color = color_pos((*line->p[0]).color, (*line->p[1]).color, -f / tmp.x);
+			tmp2 = vec4((*line->p[1]).x - f,
+					(*line->p[1]).y + ((-f / tmp.x) * tmp.y),
+					(*line->p[1]).z + ((-f / tmp.x) * tmp.z), 0);
+			tmp2.color = color_pos((*line->p[0]).color,
+					(*line->p[1]).color, -f / tmp.x);
 		}
 		else if ((*line->p[0]).x > (*line->p[1]).x)
 		{
-			tmp2 = vec4((*line->p[1]).x + f, (*line->p[1]).y + ((f / tmp.x) * tmp.y), (*line->p[1]).z + ((f / tmp.x) * tmp.z), 0);
-			tmp2.color = color_pos((*line->p[0]).color, (*line->p[1]).color, f / tmp.x);
+			tmp2 = vec4((*line->p[1]).x + f,
+				(*line->p[1]).y + ((f / tmp.x) * tmp.y),
+				(*line->p[1]).z + ((f / tmp.x) * tmp.z), 0);
+			tmp2.color = color_pos((*line->p[0]).color,
+					(*line->p[1]).color, f / tmp.x);
 		}
 		f += 1;
 		draw_vec4(app, tmp2, o);

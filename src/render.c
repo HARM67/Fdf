@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:47:15 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 04:47:46 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 07:16:56 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	render(t_app *app)
 {
-	t_obj *o = app->scene.cur_obj;
+	t_obj *o;
 
+	o = app->scene.cur_obj;
 	app->count += 0.01;
-	//ft_bzero(app->data, HEIGHT * WIDTH * 4);
 	reset_buffer(app);
 	if (app->all)
 		draw_scene(app);

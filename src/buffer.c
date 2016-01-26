@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:49:48 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 04:50:53 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 09:23:47 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ void	show_z_buffer(t_app *app)
 	{
 		while (x < WIDTH)
 		{
-			app->data[y * 4 * WIDTH + x * 4] = 1 - (app->z_buffer[y * WIDTH + x ] * 255);
-			app->data[y * 4 * WIDTH + x * 4 + 1] = 1 - (app->z_buffer[y * WIDTH + x ] * 255);
-			app->data[y * 4 * WIDTH + x * 4 + 2] = 1 - (app->z_buffer[y * WIDTH + x ] * 255);
+			app->data[y * 4 * WIDTH + x * 4] =
+				1 - (app->z_buffer[y * WIDTH + x] * 255);
+			app->data[y * 4 * WIDTH + x * 4 + 1] =
+				1 - (app->z_buffer[y * WIDTH + x] * 255);
+			app->data[y * 4 * WIDTH + x * 4 + 2] =
+				1 - (app->z_buffer[y * WIDTH + x] * 255);
 			x++;
 		}
 		x = 0;
 		y++;
 	}
 }
-
-
