@@ -27,4 +27,11 @@ all:
 		$(SRC_PATH)vec4_lst.c \
 		$(SRC_PATH)mov_mat.c \
 		$(SRC_PATH)draw_scene.c \
+		$(SRC_PATH)scene.c \
+		$(SRC_PATH)mouse.c \
+		$(SRC_PATH)render.c \
+		$(SRC_PATH)text.c \
+		$(SRC_PATH)buffer.c \
+		$(SRC_PATH)insert_object.c \
+		$(SRC_PATH)key.c \
 	 	get_next_line.c -I./ft_printf/includes/ -I./includes -L./ft_printf -L./minilibx_macos -framework OpenGL -framework AppKit -lmlx -lftprintf

@@ -6,16 +6,11 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 18:45:24 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/25 08:53:53 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 04:30:17 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int		fdf_arg(char *line)
-{
-	return (0);
-}
 
 void	read_first_line(char *line, t_fdf *fdf)
 {
@@ -103,6 +98,7 @@ void	fdf_lst_to_array(t_obj *o, t_fdf *fdf)
 		tmp = tmp->next;
 	}
 }
+
 t_vec4	calc_normal(t_trgle t)
 {
 	t_vec4	rt;
@@ -110,6 +106,7 @@ t_vec4	calc_normal(t_trgle t)
 	rt = prod_vec(sous_vec4(*t.p[1], *t.p[0]), sous_vec4(*t.p[2], *t.p[0]));
 	return (rt);
 }
+
 void	make_fdf_trgle(t_obj *o, t_fdf *fdf)
 {
 	int x;
@@ -125,14 +122,8 @@ void	make_fdf_trgle(t_obj *o, t_fdf *fdf)
 	{
 		while (x < fdf->lst.x - 1)
 		{
-	//		o->trgles[j] = trgle(&o->vecs[(y * fdf->lst.x) + x + 1], &o->vecs[(y * fdf->lst.x) + x], &o->vecs[(y * fdf->lst.x) + x + fdf->lst.x]);
 			o->trgles[j] = trgle(&o->vecs[(y * fdf->lst.x) + x + fdf->lst.x], &o->vecs[(y * fdf->lst.x) + x], &o->vecs[(y * fdf->lst.x) + x + 1]);
-
-	//		o->trgles[j + 1] = trgle(&o->vecs[(y * fdf->lst.x) + x + fdf->lst.x], &o->vecs[(y * fdf->lst.x) + x + fdf->lst.x + 1], &o->vecs[(y * fdf->lst.x) + x +1]);
 			o->trgles[j + 1] = trgle(&o->vecs[(y * fdf->lst.x) + x +1], &o->vecs[(y * fdf->lst.x) + x + fdf->lst.x + 1],&o->vecs[(y * fdf->lst.x) + x + fdf->lst.x] );
-		//	o->trgles[j].normal = calc_normal(o->trgles[j]);
-		//	o->trgles[j + 1].normal = calc_normal(o->trgles[j + 1]);
-			//ft_printf("%f %f %f\n", o->trgles[j].normal.x, o->trgles[j].normal.y, o->trgles[j].normal.z);
 			x++;
 			j += 2;
 		}
@@ -189,8 +180,6 @@ void	make_fdf_line2(t_obj *o, t_fdf *fdf)
 	}
 }
 
-
-
 t_obj	*read_fdf(t_app *app, char *filename)
 {
 	int fd;
@@ -222,4 +211,21 @@ t_obj	*read_fdf(t_app *app, char *filename)
 	o->nbr_vecs = fdf.lst.size;
 	close (fd);
 	return (o);
+}
+
+void	load_all_fdf(t_app *app)
+{
+	int i = 1;
+	t_obj *o;
+
+	ft_printf("%d", app->ac);
+	while (i < app->ac)
+	{
+		o = new_obj(app,read_fdf(app, app->av[i]));
+		o->scale = vec4(800, 800, 800, 1);
+		o->rot = vec4(0, -M_PI / 4, 0, 1);
+		o->have_color = 0;
+		o->render_type = 3;
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/25 08:08:59 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/26 04:55:21 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,7 @@ void						rasterization(t_app *app, t_vec4 v1, t_vec4 v2, t_vec4 v3, t_obj *o);
 ** fdf.c
 */
 t_obj						*read_fdf(t_app *app, char *filename);
+void						load_all_fdf(t_app *app);
 
 /*
 ** vec4_lst.c
@@ -283,4 +284,45 @@ void						draw_scene(t_app *app);
 
 // draw_vec4.c
 void						ray_trace(t_app *app, t_vec4 tmp, t_obj *obj);
+
+/*
+** scene.c
+*/
+void						scene_init(t_app *app);
+
+int							mouse_move_hook(int x, int y, t_app *app);
+int							mouse_up_hook(int button, int x, int y, t_app *app);
+int							mouse_press_hook(int button, int x, int y, t_app *app);
+
+/*
+** render.c
+*/
+int							render(t_app *app);
+
+
+/*
+** text.c
+*/
+void						print_text(t_app *app);
+
+/*
+** buffer.c
+*/
+void						reset_buffer(t_app *app);
+void						show_z_buffer(t_app *app);
+
+
+/*
+** insert_object.c
+*/
+void						insert_sphere(t_app *app);
+void						insert_cube(t_app *app);
+
+
+
+/*
+** key.c
+*/
+int							key_up(int key, t_app *app);
+int							key_down(int key, t_app *app);
 #endif
