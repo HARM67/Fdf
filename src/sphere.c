@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/18 08:40:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 09:31:49 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 05:00:46 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,41 @@ static void	make_sphere_vertex(t_obj *o, int row, int col)
 	}
 }
 
+static int	make_sphere_trgles2(t_obj *o, int row, int col, int *i)
+{
+	int j;
+
+	j = *i;
+	while (*i < col * (row - 1))
+	{
+		if (((*i - col) % col) != col - 1)
+		{
+			o->trgles[j] = trgle(&(o->vecs)[*i - col + 2], &(o->vecs)[*i + 2],
+					&(o->vecs)[*i + 3]);
+			(*i)++;
+			o->trgles[j + 1] = trgle(&(o->vecs)[*i + 2],
+					&(o->vecs)[*i - col + 2], &(o->vecs)[*i - col + 1]);
+			j += 2;
+		}
+		else
+		{
+			o->trgles[j] = trgle(&(o->vecs)[*i - col + 2], &(o->vecs)[*i + 2],
+					&(o->vecs)[*i + 3 - col]);
+			(*i)++;
+			o->trgles[j + 1] = trgle(&(o->vecs)[*i + 2 - col],
+					&(o->vecs)[*i - col + 2 - col], &(o->vecs)[*i - col + 1]);
+			j += 2;
+		}
+	}
+	return (j);
+}
+
 static void	make_sphere_trgles(t_obj *o, int row, int col)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	j = 0;
 	o->trgles = (t_trgle *)ft_memalloc(sizeof(t_trgle) * o->nbr_trgles);
 	if (o->trgles == 0)
 		exit(1);
@@ -60,28 +88,7 @@ static void	make_sphere_trgles(t_obj *o, int row, int col)
 					&(o->vecs)[2]);
 		i++;
 	}
-	j = i;
-	while (i < col * (row - 1))
-	{
-		if (((i - col) % col) != col - 1)
-		{
-			o->trgles[j] = trgle(&(o->vecs)[i - col + 2], &(o->vecs)[i + 2],
-					&(o->vecs)[i + 3]);
-			i++;
-			o->trgles[j + 1] = trgle(&(o->vecs)[i + 2],
-					&(o->vecs)[i - col + 2], &(o->vecs)[i - col + 1]);
-			j += 2;
-		}
-		else
-		{
-			o->trgles[j] = trgle(&(o->vecs)[i - col + 2], &(o->vecs)[i + 2],
-					&(o->vecs)[i + 3 - col]);
-			i++;
-			o->trgles[j + 1] = trgle(&(o->vecs)[i + 2 - col],
-					&(o->vecs)[i - col + 2 - col], &(o->vecs)[i - col + 1]);
-			j += 2;
-		}
-	}
+	j = make_sphere_trgles2(o, row, col, &i);
 	while (j < o->nbr_trgles)
 	{
 		o->trgles[j] = trgle(&(o->vecs)[1], &(o->vecs)[i - col + 3],
