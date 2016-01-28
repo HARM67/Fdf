@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:38:35 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 07:06:45 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 09:30:08 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	app_init(t_app *app)
 			&app->sizeline, &app->endian);
 	ft_bzero(app->data, HEIGHT * WIDTH * 4);
 	ft_bzero(app->z_buffer, HEIGHT * WIDTH * 4);
+	init_colors(app);
 }
 
 void	app_run(t_app *app)

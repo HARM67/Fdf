@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:58:59 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 06:57:10 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 09:41:51 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ t_color			color(unsigned char r, unsigned char g,
 	rt.a = a;
 	return (rt);
 }
-/*
-**	float			c;
-**		c = (float)(tmp->y / fdf->max);
-**		tmp->color = color(175 + 55 * c, 125 + 100 * c, 75 + 100 * c, 255);
-**		if (c < 0)
-**			tmp->color = color(0, 0, 150, 255);
-**		else if (c <= 0.001)
-**			tmp->color = color(20 + (1000000 * c), 30 + (1000000 * c), 150 +
-**					(1000000 * c), 255);
-**		else if (c > 0.002 && c <= 0.2)
-**			tmp->color = color(75 - (unsigned char)(c * 100), 75 +
-**					(unsigned char)(c * 400), 20, 255);
-*/
+
+void			do_color(t_app *app, t_obj *obj)
+{
+	int i;
+
+	i = 0;
+	while (i < obj->nbr_vecs)
+	{
+		app->colors[obj->obj_color](&obj->vecs_orig[i]);
+		//obj->obj_color(&obj->vecs_orig[i]);
+		i++;
+	}
+}

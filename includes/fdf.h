@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 07:27:04 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 10:00:41 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ struct 						s_vec4
 	float					z;
 	float					w;
 	t_color					color;
+	float					relative_color;
 	t_vec4					*next;
 };
 
@@ -114,6 +115,8 @@ struct						s_obj
 	t_color					color;
 	char					have_color;
 	t_matrix4x4				mat;
+	//void					(*obj_color)(t_vec4 *);
+	int						obj_color;
 };
 
 struct						s_cam
@@ -191,6 +194,7 @@ struct						s_app
 	int						rem_no_visible;
 	float					ambient;
 	unsigned int			nb_trgl_draw;
+	void					(*colors[5])(t_vec4 *);
 };
 
 /*
@@ -208,7 +212,21 @@ t_color						color(unsigned char r, unsigned char g,
 									unsigned char b, unsigned char a);
 t_color						color_pos(t_color c1, t_color c2,
 									float position);
+void						do_color(t_app *app, t_obj *obj);
 
+/*
+** color_palette.c
+*/
+void						color_map(t_vec4 *v);
+void						color_random(t_vec4 *v);
+void						color_black_white(t_vec4 *v);
+void						color_default(t_vec4 *v);
+void						color_black_red(t_vec4 *v);
+
+/*
+** colors.c
+*/
+void						init_colors(t_app *app);
 /*
 ** vec4.c
 */
@@ -421,6 +439,12 @@ int							key_basic_transform(int key, t_app *app);
 int							key_proj(int key, t_app *app);
 int							key_select(int key, t_app *app);
 int							key_render_type(int key, t_app *app);
+
+/*
+** key3.c
+*/
+int							key_colors(int key, t_app *app);
+int							key_fov(int key, t_app *app);
 
 /*
 ** light.c

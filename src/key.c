@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:54:27 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 08:42:29 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 10:01:18 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,10 @@ int	key_down(int key, t_app *app)
 	else if (key_mode(key, app))
 		;
 	else if (key_light(key, app))
+		;
+	else if (key_colors(key, app))
+		;
+	else if (key_fov(key, app))
 		;
 	return (0);
 }

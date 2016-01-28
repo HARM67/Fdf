@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 06:22:52 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 06:49:43 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 08:13:23 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	fdf_lst_to_array(t_obj *o, t_fdf *fdf)
 	while (i < fdf->lst.size && tmp)
 	{
 		tmp->y /= fdf->max;
+		tmp->relative_color = tmp->y;
 		tmp->x -= fdf->lst.x / 2;
 		tmp->z -= fdf->lst.y / 2;
 		tmp->x = tmp->x / ((fdf->lst.x > fdf->lst.y) ? fdf->lst.x : fdf->lst.y);

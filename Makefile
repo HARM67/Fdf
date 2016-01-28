@@ -7,6 +7,8 @@ all:
 		$(SRC_PATH)app.c \
 		$(SRC_PATH)draw_vec4.c \
 		$(SRC_PATH)color.c \
+		$(SRC_PATH)colors.c \
+		$(SRC_PATH)color_palette.c \
 		$(SRC_PATH)vec4.c \
 		$(SRC_PATH)draw_line.c \
 		$(SRC_PATH)draw_line_obj.c \
@@ -38,5 +40,6 @@ all:
 		$(SRC_PATH)insert_object.c \
 		$(SRC_PATH)key.c \
 		$(SRC_PATH)key2.c \
+		$(SRC_PATH)key3.c \
 		$(SRC_PATH)light.c \
 	 	get_next_line.c -I./ft_printf/includes/ -I./includes -L./ft_printf -L./minilibx_macos -framework OpenGL -framework AppKit -lmlx -lftprintf
