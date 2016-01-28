@@ -3,7 +3,7 @@ SRC=main.c
 FLAG=-Wall -Wextra -Werror
 
 all:
-	gcc -o fdf -g \
+	gcc -o fdf \
 		$(SRC_PATH)main.c \
 		$(SRC_PATH)app.c \
 		$(SRC_PATH)draw_vec4.c \

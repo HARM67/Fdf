@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 09:31:43 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 11:16:50 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:59:32 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	key_fov(int key, t_app *app)
 	if (key == 21)
 	{
 		if (!app->maj && app->scene.cam.fov > 69.1)
-			app->scene.cam.fov -= 0.1 ;
+			app->scene.cam.fov -= 0.1;
 		else if (app->maj && app->scene.cam.fov < 71)
 			app->scene.cam.fov += 0.1;
 		render(app);

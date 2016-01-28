@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 18:45:24 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 14:19:29 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:48:40 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	read_first_line(char *line, t_fdf *fdf)
 {
-	int	i;
+	int				i;
 	unsigned int	x;
 
 	i = 0;
@@ -76,7 +76,7 @@ t_obj	*read_fdf(t_app *app, char *filename)
 	}
 	read_fdf2(o, &fdf);
 	close(fd);
-	o->obj_color = 2;
+	o->obj_color = 0;
 	do_color(app, o);
 	return (o);
 }

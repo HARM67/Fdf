@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 06:18:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 12:57:02 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:01:01 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		check_vec4(t_vec4 v)
 	return (1);
 }
 
-void	draw_trans(t_app *app,t_trgle rt , t_obj *o , t_vec4 *tmp)
+void	draw_trans(t_app *app, t_trgle rt, t_obj *o, t_vec4 *tmp)
 {
 	rt.normal = prod_vec(sous_vec4(tmp[1], tmp[0]), sous_vec4(tmp[2], tmp[0]));
 	rt.normal2 = prod_vec(sous_vec4(tmp[4], tmp[3]), sous_vec4(tmp[5], tmp[3]));

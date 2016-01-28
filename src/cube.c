@@ -6,13 +6,13 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:14:54 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 14:25:02 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:02:08 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static	void	make_cube_vertex(t_obj *o)
+static void	make_cube_vertex(t_obj *o)
 {
 	o->vecs = (t_vec4 *)ft_memalloc(sizeof(t_vec4) * 8);
 	o->vecs_orig = (t_vec4 *)ft_memalloc(sizeof(t_vec4) * 8);
@@ -35,7 +35,7 @@ static	void	make_cube_vertex(t_obj *o)
 	o->nbr_vecs = 8;
 }
 
-static void		make_cube_trgles(t_obj *o)
+static void	make_cube_trgles(t_obj *o)
 {
 	int i;
 
@@ -60,7 +60,7 @@ static void		make_cube_trgles(t_obj *o)
 
 static void	cube_vecs_relative(t_obj *o)
 {
-	unsigned int i;;
+	unsigned int i;
 
 	i = 0;
 	while (i < o->nbr_vecs)
@@ -70,7 +70,7 @@ static void	cube_vecs_relative(t_obj *o)
 	}
 }
 
-t_obj			*make_cube(void)
+t_obj		*make_cube(void)
 {
 	t_obj	*o;
 

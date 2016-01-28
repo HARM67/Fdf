@@ -6,13 +6,13 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 18:11:46 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 14:24:30 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:02:40 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_cam				cam()
+t_cam				cam(void)
 {
 	t_cam	rt;
 

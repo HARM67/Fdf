@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 10:33:22 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 13:40:47 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:59:11 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	print_text_info2(t_app *app)
 		else
 			mlx_string_put(app->mlx, app->win, 10, 140, 0xFF0000,
 					" <R>  Light : OFF");
-	}		
+	}
 	if (app->a_depth)
 		mlx_string_put(app->mlx, app->win, 10, 120, 0x00FF00,
 				" <E>  Depth_test : ON");

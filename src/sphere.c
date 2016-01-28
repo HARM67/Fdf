@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/18 08:40:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 14:23:02 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:55:37 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	make_sphere_trgles(t_obj *o, unsigned int row, unsigned int col)
 
 static void	sphere_vecs_relative(t_obj *o)
 {
-	unsigned int i;;
+	unsigned int i;
 
 	i = 0;
 	while (i < o->nbr_vecs)

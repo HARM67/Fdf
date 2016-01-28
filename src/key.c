@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:54:27 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 14:08:15 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:00:12 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	key_mode(int key, t_app *app)
 	else if (key == 13)
 		app->rem_no_visible = !app->rem_no_visible;
 	else if (key == 17)
-		app->a_picking= !app->a_picking;
+		app->a_picking = !app->a_picking;
 	else
 		return (0);
 	render(app);

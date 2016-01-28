@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 14:27:22 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:40:09 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_raster		t_raster;
 typedef struct s_scene		t_scene;
 typedef struct s_app		t_app;
 
-struct 						s_color
+struct						s_color
 {
 	unsigned char			r;
 	unsigned char			g;
@@ -44,7 +44,7 @@ struct 						s_color
 	unsigned char			a;
 };
 
-struct 						s_vec4
+struct						s_vec4
 {
 	float					x;
 	float					y;
@@ -115,7 +115,6 @@ struct						s_obj
 	t_color					color;
 	char					have_color;
 	t_matrix4x4				mat;
-	//void					(*obj_color)(t_vec4 *);
 	int						obj_color;
 };
 
@@ -239,7 +238,8 @@ t_vec4						normalize(t_vec4 v);
 
 /*
 ** line.c
-*/t_line						line(t_vec4 *a, t_vec4 *b);
+*/
+t_line						line(t_vec4 *a, t_vec4 *b);
 
 /*
 **draw_vec4.c
@@ -281,7 +281,7 @@ int							check_vec4(t_vec4 v);
 ** op_mat4x4.c
 */
 t_matrix4x4					identity_mat4x4(void);
-t_matrix4x4 				muli_mat4x4(t_matrix4x4 a, t_matrix4x4 b);
+t_matrix4x4					muli_mat4x4(t_matrix4x4 a, t_matrix4x4 b);
 t_vec4						muli_mat4x4_vec4(t_matrix4x4 m, t_vec4 v);
 void						do_transform(t_app *app, t_obj *obj,
 								t_matrix4x4 mat);
@@ -311,8 +311,10 @@ t_obj						*make_sphere(unsigned int row, unsigned int col);
 void						draw_obj(t_app *app, t_obj *obj);
 void						draw_all_obj(t_app *app);
 
-// projection.c
-t_matrix4x4					perspective(t_vec4);
+/*
+** projection.c
+*/
+t_matrix4x4					perspective(t_vec4 v);
 t_vec4						perspective_vec4(t_app *app, t_vec4 v);
 
 /*
@@ -373,10 +375,10 @@ void						push_back_vec4(t_vec4_lst *lst, t_vec4 *elem);
 /*
 ** mov_mat.c
 */
-t_matrix4x4 				translate_mat(t_vec4 trans);
+t_matrix4x4					translate_mat(t_vec4 trans);
 t_matrix4x4					scale_mat(t_vec4 scale);
 t_matrix4x4					rot_x_mat(float rot_x);
-t_matrix4x4 				rot_y_mat(float rot_y);
+t_matrix4x4					rot_y_mat(float rot_y);
 t_matrix4x4					rot_z_mat(float rot_z);
 
 /*

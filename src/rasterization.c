@@ -6,12 +6,11 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/17 13:46:53 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 14:23:53 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:56:14 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 void			init_raster(t_raster *r, t_trgle t)
 {
@@ -34,7 +33,8 @@ static void		rasterization2(t_app *app, t_obj *o, t_raster r)
 				r.m.z + r.cursor2 * (r.u.z - r.m.z) / (r.u.y - r.m.y), 1);
 		r.b = vec4(r.d.x + (r.cursor * r.du), r.cursor + r.d.y,
 				r.d.z + r.cursor * (r.u.z - r.d.z) / (r.u.y - r.d.y), 1);
-		r.a.color = color_pos(r.u.color, r.m.color, r.cursor2 / (r.u.y - r.m.y));
+		r.a.color = color_pos(r.u.color, r.m.color, r.cursor2 /
+				(r.u.y - r.m.y));
 		r.b.color = color_pos(r.u.color, r.d.color, r.cursor / (r.u.y - r.d.y));
 		r.l = line(&r.a, &r.b);
 		draw_line(app, &r.l, o);

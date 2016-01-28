@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 07:12:20 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 14:26:12 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:01:30 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	draw_line_obj(t_app *app, t_obj *obj, t_vec4 v1, t_vec4 v2)
 	draw_line(app, &l, obj);
 }
 
-void	draw_line_obj_1(t_app *app, t_obj *obj, int render_type)
+void		draw_line_obj_1(t_app *app, t_obj *obj, int render_type)
 {
 	unsigned int i;
 
@@ -42,7 +42,7 @@ void	draw_line_obj_1(t_app *app, t_obj *obj, int render_type)
 		}
 }
 
-void	draw_line_obj_2(t_app *app, t_obj *obj, int render_type)
+void		draw_line_obj_2(t_app *app, t_obj *obj, int render_type)
 {
 	unsigned int	i;
 

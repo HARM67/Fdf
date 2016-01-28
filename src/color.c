@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:58:59 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 14:27:43 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:02:24 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void			do_color(t_app *app, t_obj *obj)
 	while (i < obj->nbr_vecs)
 	{
 		app->colors[obj->obj_color](&obj->vecs_orig[i]);
-		//obj->have_color = 0;
 		i++;
 	}
 }
