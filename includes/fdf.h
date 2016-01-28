@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 10:00:41 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 12:02:40 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,10 +191,12 @@ struct						s_app
 	int						a_light;
 	float					light_coef;
 	int						a_culling;
+	int						a_picking;
 	int						rem_no_visible;
 	float					ambient;
 	unsigned int			nb_trgl_draw;
 	void					(*colors[5])(t_vec4 *);
+	char					print_text;
 };
 
 /*
@@ -414,6 +416,13 @@ int							render(t_app *app);
 void						print_text(t_app *app);
 
 /*
+** text2.c
+*/
+void						print_text_onoff(t_app *app);
+void						print_text_pos(t_app *app);
+void						print_text_info2(t_app *app);
+
+/*
 ** buffer.c
 */
 void						reset_buffer(t_app *app);
@@ -445,6 +454,7 @@ int							key_render_type(int key, t_app *app);
 */
 int							key_colors(int key, t_app *app);
 int							key_fov(int key, t_app *app);
+int							key_print_text(int key, t_app *app);
 
 /*
 ** light.c

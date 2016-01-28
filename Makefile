@@ -36,6 +36,7 @@ all:
 		$(SRC_PATH)mouse.c \
 		$(SRC_PATH)render.c \
 		$(SRC_PATH)text.c \
+		$(SRC_PATH)text2.c \
 		$(SRC_PATH)buffer.c \
 		$(SRC_PATH)insert_object.c \
 		$(SRC_PATH)key.c \

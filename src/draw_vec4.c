@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:52:30 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 06:21:38 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 13:34:06 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ void		draw_vec4(t_app *app, t_vec4 tmp, t_obj *o)
 		return ;
 	app->z_buffer[(int)((int)(tmp.x + 0.5) + ((int)(tmp.y + 0.5) * WIDTH))] =
 		tmp.z;
-	app->ray[(int)((int)(tmp.x + 0.5) + ((int)(tmp.y + 0.5) * WIDTH))] = o;
 	app->data[(int)(tmp.y + 0.5) * 4 * WIDTH + (int)(tmp.x + 0.5) * 4] =
 		tmp.color.b * (1 - tmp.z);
 	app->data[(int)(tmp.y + 0.5) * 4 * WIDTH + (int)(tmp.x + 0.5) * 4 + 1] =
 		tmp.color.g * (1 - tmp.z);
 	app->data[(int)(tmp.y + 0.5) * 4 * WIDTH + (int)(tmp.x + 0.5) * 4 + 2] =
 		tmp.color.r * (1 - tmp.z);
+	if (!app->a_picking)
+		return ;
+	app->ray[(int)((int)(tmp.x + 0.5) + ((int)(tmp.y + 0.5) * WIDTH))] = o;
 }
 
 static void	draw_dot(t_app *app, t_vec4 v, t_obj *o)

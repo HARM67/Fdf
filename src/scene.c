@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:31:12 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 07:04:57 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 12:22:54 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	scene_init(t_app *app)
 	app->scene.cam.proj = 2;
 	app->light_coef = 1.0;
 	app->a_culling = 1;
-	app->ambient = 0;
+	app->a_depth = 1;
+	app->rem_no_visible = 1;
+	app->a_light = 1;
+	app->ambient = 0.4;
 	app->scene.scale = vec4(1, 1, 1, 1);
 	app->scene.rot = vec4(0, 0, 0, 1);
 	app->scene.pos = vec4(0, 0, 0, 1);

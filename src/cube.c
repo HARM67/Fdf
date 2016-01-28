@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:14:54 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 09:25:41 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 12:37:47 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,18 @@ static void		make_cube_trgles(t_obj *o)
 	o->nbr_trgles = 12;
 }
 
+static void	cube_vecs_relative(t_obj *o)
+{
+	int i;;
+
+	i = 0;
+	while (i < o->nbr_vecs)
+	{
+		o->vecs_orig[i].relative_color = (o->vecs_orig[i].y + 1) / 2;
+		i++;
+	}
+}
+
 t_obj			*make_cube(void)
 {
 	t_obj	*o;
@@ -65,6 +77,7 @@ t_obj			*make_cube(void)
 	o = (t_obj *)ft_memalloc(sizeof(t_obj));
 	ft_strcpy(o->name, "cube");
 	make_cube_vertex(o);
+	cube_vecs_relative(o);
 	make_cube_trgles(o);
 	o->nbr_lines = 0;
 	o->scale = vec4(1.0, 1.0, 1.0, 1.0);

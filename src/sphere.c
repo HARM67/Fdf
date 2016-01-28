@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/18 08:40:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 05:00:46 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 12:36:43 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,18 @@ static void	make_sphere_trgles(t_obj *o, int row, int col)
 	}
 }
 
+static void	sphere_vecs_relative(t_obj *o)
+{
+	int i;;
+
+	i = 0;
+	while (i < o->nbr_vecs)
+	{
+		o->vecs_orig[i].relative_color = (o->vecs_orig[i].y + 1) / 2;
+		i++;
+	}
+}
+
 t_obj		*make_sphere(int row, int col)
 {
 	t_obj	*o;
@@ -107,6 +119,7 @@ t_obj		*make_sphere(int row, int col)
 	o->nbr_vecs = 2 + (row * col);
 	o->nbr_trgles = (row - 2) * col * 2 + 2 * col;
 	make_sphere_vertex(o, row, col);
+	sphere_vecs_relative(o);
 	make_sphere_trgles(o, row, col);
 	o->nbr_lines = 0;
 	o->scale = vec4(1.0, 1.0, 1.0, 1.0);

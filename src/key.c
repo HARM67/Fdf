@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:54:27 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 10:01:18 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 12:22:04 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,21 @@ int	key_insert_maj(int key, t_app *app)
 
 int	key_mode(int key, t_app *app)
 {
-	if (key == 2)
+	if (key == 14)
 	{
 		if (app->maj)
 			app->show_depth = !app->show_depth;
 		else
 			app->a_depth = !app->a_depth;
 	}
-	else if (key == 37)
+	else if (key == 15)
 		app->a_light = !app->a_light;
 	else if (key == 12)
 		app->a_culling = !app->a_culling;
 	else if (key == 13)
 		app->rem_no_visible = !app->rem_no_visible;
+	else if (key == 17)
+		app->a_picking= !app->a_picking;
 	else
 		return (0);
 	render(app);
@@ -59,7 +61,7 @@ int	key_light(int key, t_app *app)
 		if (app->maj)
 			app->ambient += (app->ambient < 1.0) ? 0.1 : 0;
 		else
-			app->light_coef += (app->light_coef < 1.5) ? 0.1 : 0;
+			app->light_coef += (app->light_coef < 1.0) ? 0.1 : 0;
 	}
 	else if (key == 78)
 	{
@@ -97,5 +99,8 @@ int	key_down(int key, t_app *app)
 		;
 	else if (key_fov(key, app))
 		;
+	else if (key_print_text(key, app))
+		;
+	ft_printf("%d\n",key);
 	return (0);
 }

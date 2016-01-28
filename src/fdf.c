@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 18:45:24 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 09:25:29 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 12:24:09 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ t_obj	*read_fdf(t_app *app, char *filename)
 	}
 	read_fdf2(o, &fdf);
 	close(fd);
-	o->obj_color = 0;
+	o->obj_color = 2;
+	do_color(app, o);
 	return (o);
 }
 

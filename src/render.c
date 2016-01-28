@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:47:15 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 07:16:56 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 13:32:42 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	render(t_app *app)
 	t_obj *o;
 
 	o = app->scene.cur_obj;
-	app->count += 0.01;
 	reset_buffer(app);
 	if (app->all)
 		draw_scene(app);
@@ -29,7 +28,8 @@ int	render(t_app *app)
 		show_z_buffer(app);
 	}
 	mlx_put_image_to_window(app->mlx, app->win, app->img, 0, 0);
-	print_text(app);
+	if (app->print_text)
+		print_text(app);
 	app->nb_trgl_draw = 0;
 	return (1);
 }

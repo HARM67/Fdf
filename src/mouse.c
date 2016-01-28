@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:34:55 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 08:43:55 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 12:05:59 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ int		mouse_press_hook(int button, int x, int y, t_app *app)
 		v = &app->scene.scale;
 	else
 		v = &o->scale;
-	if (button == 1 && x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
+	if (button == 1 && x > 0 && x < WIDTH && y > 0 && y < HEIGHT
+			&& app->a_picking)
 	{
 		if (app->ray[x + (y * WIDTH)])
 			app->scene.cur_obj = app->ray[x + (y * WIDTH)];

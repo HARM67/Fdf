@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 06:18:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 07:28:38 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 12:57:02 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	draw_trgle(t_app *app, t_trgle t, t_obj *o)
 
 int		check_vec4(t_vec4 v)
 {
-	if (v.x < 0 || v.x > WIDTH || v.y < 0 || v.y > HEIGHT || v.z < 0)
+	if (v.x < 0 || v.x > WIDTH || v.y < 0 || v.y > HEIGHT || v.w < 0)
 		return (0);
 	return (1);
 }
