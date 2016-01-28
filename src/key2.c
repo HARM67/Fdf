@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 08:34:58 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 08:40:53 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:52:41 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 int	key_up(int key, t_app *app)
 {
 	if (key == 257)
+	{
 		app->maj = 0;
+		return (1);
+	}
 	return (0);
 }
 

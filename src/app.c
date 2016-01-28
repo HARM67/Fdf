@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:38:35 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 09:30:08 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:28:40 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	app_init(t_app *app)
 
 void	app_run(t_app *app)
 {
-	t_obj *o;
-
 	load_all_fdf(app);
 	app->ray = (t_obj**)ft_memalloc(sizeof(t_obj*) * HEIGHT * WIDTH);
 	scene_init(app);
@@ -42,4 +40,5 @@ void	app_run(t_app *app)
 
 void	app_clean(t_app *app)
 {
+	app = 0;
 }

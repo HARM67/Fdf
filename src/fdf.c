@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 18:45:24 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 12:24:09 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:19:29 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	read_first_line(char *line, t_fdf *fdf)
 {
-	int				i;
+	int	i;
 	unsigned int	x;
 
 	i = 0;
@@ -27,7 +27,7 @@ void	read_first_line(char *line, t_fdf *fdf)
 		while (ft_isdigit(*line))
 			line++;
 		push_back_vec4(&fdf->lst, new_vec4(vec4((float)x, i, fdf->lst.y, 1)));
-		fdf->max = (ABS(i) > fdf->max) ? ABS(i) : fdf->max;
+		fdf->max = (ABS(i) > (int)fdf->max) ? (unsigned int)ABS(i) : fdf->max;
 		x++;
 		fdf->lst.size++;
 		if (*line == '\0')

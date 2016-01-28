@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/18 08:40:10 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 12:36:43 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:23:02 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ static void	make_sphere_vertex(t_obj *o, int row, int col)
 	}
 }
 
-static int	make_sphere_trgles2(t_obj *o, int row, int col, int *i)
+static int	make_sphere_trgles2(t_obj *o, unsigned int row, unsigned int col,
+		unsigned int *i)
 {
-	int j;
+	unsigned int j;
 
 	j = *i;
 	while (*i < col * (row - 1))
@@ -69,10 +70,10 @@ static int	make_sphere_trgles2(t_obj *o, int row, int col, int *i)
 	return (j);
 }
 
-static void	make_sphere_trgles(t_obj *o, int row, int col)
+static void	make_sphere_trgles(t_obj *o, unsigned int row, unsigned int col)
 {
-	int	i;
-	int	j;
+	unsigned int	i;
+	unsigned int	j;
 
 	i = 0;
 	o->trgles = (t_trgle *)ft_memalloc(sizeof(t_trgle) * o->nbr_trgles);
@@ -100,7 +101,7 @@ static void	make_sphere_trgles(t_obj *o, int row, int col)
 
 static void	sphere_vecs_relative(t_obj *o)
 {
-	int i;;
+	unsigned int i;;
 
 	i = 0;
 	while (i < o->nbr_vecs)
@@ -110,7 +111,7 @@ static void	sphere_vecs_relative(t_obj *o)
 	}
 }
 
-t_obj		*make_sphere(int row, int col)
+t_obj		*make_sphere(unsigned int row, unsigned int col)
 {
 	t_obj	*o;
 

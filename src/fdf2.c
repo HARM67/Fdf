@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 06:22:52 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 13:38:32 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:17:27 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	fdf_lst_to_array(t_obj *o, t_fdf *fdf)
 
 void	make_fdf_trgle(t_obj *o, t_fdf *fdf)
 {
-	int	x;
-	int	y;
-	int	j;
+	unsigned int	x;
+	unsigned int	y;
+	unsigned int	j;
 
 	o->nbr_trgles = (fdf->lst.x - 1) * (fdf->lst.y - 1) * 2;
 	o->trgles = (t_trgle*)ft_memalloc(sizeof(t_trgle) * o->nbr_trgles);
@@ -85,9 +85,9 @@ void	make_fdf_trgle(t_obj *o, t_fdf *fdf)
 
 void	make_fdf_line(t_obj *o, t_fdf *fdf)
 {
-	int	x;
-	int	y;
-	int	j;
+	unsigned int	x;
+	unsigned int	y;
+	unsigned int	j;
 
 	o->nbr_lines = (fdf->lst.x - 1) * fdf->lst.y;
 	o->lines = (t_line*)ft_memalloc(sizeof(t_line) * o->nbr_lines);
@@ -110,9 +110,9 @@ void	make_fdf_line(t_obj *o, t_fdf *fdf)
 
 void	make_fdf_line2(t_obj *o, t_fdf *fdf)
 {
-	int	x;
-	int	y;
-	int	j;
+	unsigned int	x;
+	unsigned int	y;
+	unsigned int	j;
 
 	o->nbr_lines2 = (fdf->lst.y - 1) * fdf->lst.x;
 	o->lines2 = (t_line*)ft_memalloc(sizeof(t_line) * o->nbr_lines2);

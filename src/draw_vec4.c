@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:52:30 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 13:34:06 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:28:10 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void		draw_vec4(t_app *app, t_vec4 tmp, t_obj *o)
 
 static void	draw_dot(t_app *app, t_vec4 v, t_obj *o)
 {
-	t_trgle	rt;
 	t_vec4	tmp;
 	int		i;
 	int		j;
@@ -61,7 +60,6 @@ static void	draw_dot(t_app *app, t_vec4 v, t_obj *o)
 void		draw_all_vec4(t_app *app, t_obj *obj)
 {
 	unsigned int	i;
-	t_vec4			v;
 	float			proj;
 
 	proj = app->scene.cam.proj;

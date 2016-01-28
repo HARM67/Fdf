@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 12:02:40 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:27:22 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ struct						s_app
 	void					*win;
 	t_scene					scene;
 	float					count;
-	float					count2;
 	int						*img;
 	char					*data;
 	float					z_buffer[WIDTH * HEIGHT];
@@ -197,6 +196,7 @@ struct						s_app
 	unsigned int			nb_trgl_draw;
 	void					(*colors[5])(t_vec4 *);
 	char					print_text;
+	int						auto_rotate;
 };
 
 /*
@@ -303,7 +303,7 @@ t_obj						*make_cube();
 /*
 ** sphere.c
 */
-t_obj						*make_sphere(int row, int col);
+t_obj						*make_sphere(unsigned int row, unsigned int col);
 
 /*
 ** draw_obj.c

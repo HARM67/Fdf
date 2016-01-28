@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 09:27:50 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 09:27:52 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:26:31 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	draw_line_x(t_app *app, t_vec4 tmp, t_line *line, t_obj *o)
 void	draw_line(t_app *app, t_line *line, t_obj *o)
 {
 	t_vec4	tmp;
-	t_vec4	tmp2;
 
 	tmp = sous_vec4(*line->p[0], *line->p[1]);
 	if (ABS(tmp.x) < ABS(tmp.y))

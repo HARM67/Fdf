@@ -1,5 +1,6 @@
 SRC_PATH=./src/
 SRC=main.c
+FLAG=-Wall -Wextra -Werror
 
 all:
 	gcc -o fdf -g \
@@ -43,4 +44,4 @@ all:
 		$(SRC_PATH)key2.c \
 		$(SRC_PATH)key3.c \
 		$(SRC_PATH)light.c \
-	 	get_next_line.c -I./ft_printf/includes/ -I./includes -L./ft_printf -L./minilibx_macos -framework OpenGL -framework AppKit -lmlx -lftprintf
+	 	get_next_line.c $(FLAG) -I./ft_printf/includes/ -I./includes -L./ft_printf -L./minilibx_macos -framework OpenGL -framework AppKit -lmlx -lftprintf

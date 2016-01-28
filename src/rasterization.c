@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/17 13:46:53 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 05:18:57 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:23:53 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			init_raster(t_raster *r, t_trgle t)
 	r->um = (r->u.x - r->m.x) / (r->u.y - r->m.y);
 }
 
-static void		rasterization2(t_app *app, t_trgle t, t_obj *o, t_raster r)
+static void		rasterization2(t_app *app, t_obj *o, t_raster r)
 {
 	r.cursor2 = 0;
 	while (r.cursor < r.u.y - r.d.y)
@@ -60,5 +60,5 @@ void			rasterization(t_app *app, t_trgle t, t_obj *o)
 		draw_line(app, &r.l, o);
 		r.cursor += 1.0;
 	}
-	rasterization2(app, t, o, r);
+	rasterization2(app, o, r);
 }

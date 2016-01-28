@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 03:42:32 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/26 06:57:50 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:26:54 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,6 @@ t_vec4	inverse(t_vec4 v)
 	v.y = -v.y;
 	v.z = -v.z;
 	return (v);
-}
-
-t_vec4	*vec4cpy(t_vec4 src)
-{
-	t_vec4 *rt;
-
-	rt = ft_memalloc(sizeof(t_vec4));
-	return (rt);
 }
 
 t_vec4	vec4(float x, float y, float z, float w)

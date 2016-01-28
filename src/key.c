@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:54:27 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 12:22:04 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:08:15 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,5 @@ int	key_down(int key, t_app *app)
 		;
 	else if (key_print_text(key, app))
 		;
-	ft_printf("%d\n",key);
 	return (0);
 }

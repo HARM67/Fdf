@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 07:11:55 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 13:30:03 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:25:26 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ t_matrix4x4	muli_mat4x4(t_matrix4x4 a, t_matrix4x4 b)
 
 void		do_transform(t_app *app, t_obj *obj, t_matrix4x4 mat)
 {
-	int		i;
-	float	proj;
+	unsigned int	i;
+	float			proj;
 
 	i = 0;
 	proj = app->scene.cam.proj;

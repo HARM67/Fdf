@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:48:45 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 13:13:16 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:34:04 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,20 @@ void	print_text_rot(t_app *app)
 	ft_sprintf(&txt, "<mouse move>   rot(x[%f], y[%f], z[%f])", v.x, v.y, v.z);
 	mlx_string_put(app->mlx, app->win, 30, HEIGHT - 30, 0x0000FF, txt);
 	free(txt);
+	mlx_string_put(app->mlx, app->win, 30, HEIGHT - 110, 0x0000FF,
+				"(<shift>)<+/-> Change Light");
+	mlx_string_put(app->mlx, app->win, 30, HEIGHT - 150, 0x0000FF,
+				" <3>           Change color");
+	mlx_string_put(app->mlx, app->win, 30, HEIGHT - 130, 0x0000FF,
+				" <4>           Change Field of view");
 }
 
 void	print_text(t_app *app)
 {
 	char *txt;
 
-	ft_sprintf(&txt, "<tab> name : [%s]", app->scene.cur_obj->name);
-	mlx_string_put(app->mlx, app->win, 10, 10, 0x0000FF, txt);
+	ft_sprintf(&txt, "<tab> Name : [%s]", app->scene.cur_obj->name);
+	mlx_string_put(app->mlx, app->win, 10, 10, 0x5555FF, txt);
 	free(txt);
 	print_text_proj(app);
 	print_text_render(app);

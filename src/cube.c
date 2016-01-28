@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 08:14:54 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 12:37:47 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:25:02 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void		make_cube_trgles(t_obj *o)
 
 static void	cube_vecs_relative(t_obj *o)
 {
-	int i;;
+	unsigned int i;;
 
 	i = 0;
 	while (i < o->nbr_vecs)

@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 04:34:55 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 12:05:59 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:16:08 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ int		mouse_up_hook(int button, int x, int y, t_app *app)
 {
 	t_obj *o;
 
+	x = 0;
+	y = 0;
+	if (button != 1)
+		return (0);
 	o = app->scene.cur_obj;
 	app->pos_save2 = app->scene.rot;
 	app->pos_save = o->rot;
@@ -87,6 +91,7 @@ int		mouse_press_hook(int button, int x, int y, t_app *app)
 	{
 		if (app->ray[x + (y * WIDTH)])
 			app->scene.cur_obj = app->ray[x + (y * WIDTH)];
+		render(app);
 	}
 	mouse_press_hook3(button, v, app);
 	mouse_press_hook2(button, x, y, app);

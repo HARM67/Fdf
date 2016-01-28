@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:58:59 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 12:29:46 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/28 14:27:43 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_color			color(unsigned char r, unsigned char g,
 
 void			do_color(t_app *app, t_obj *obj)
 {
-	int i;
+	unsigned int i;
 
 	i = 0;
 	while (i < obj->nbr_vecs)
