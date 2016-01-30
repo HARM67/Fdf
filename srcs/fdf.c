@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 18:45:24 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/30 16:22:09 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/30 17:52:13 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_obj		*read_fdf(t_app *app, char *filename)
 		put_error();
 	ft_strcpy(o->name, filename);
 	ft_bzero(&fdf, sizeof(t_fdf));
-	while (get_next_line(fd, &line))
+	while ((get_next_line(fd, &line)) > 0)
 	{
 		read_first_line(line, &fdf);
 		fdf.lst.y++;

@@ -17,7 +17,8 @@ FLAG=-Wall -Werror -Wextra
 
 all: $(NAME)
 
-$(NAME): $(LIB)libftprintf.a $(INCLUDES)/get_next_line.h $(INCLUDES_FT_PRINTF)/ft_printf.h \
+$(NAME): $(LIB)libftprintf.a ./minilibx_macos/libmlx.a \
+	$(INCLUDES)/get_next_line.h $(INCLUDES_FT_PRINTF)/ft_printf.h \
 	$(INCLUDES)/fdf.h $(OBJ)
 	$(COMPILER) -o $(NAME) -I$(INCLUDES_FT_PRINTF) -I$(INCLUDES) $(OBJ) -L$(LIB) -lftprintf \
 		-L./minilibx_macos -framework OpenGL -framework AppKit -lmlx
@@ -25,9 +26,11 @@ $(NAME): $(LIB)libftprintf.a $(INCLUDES)/get_next_line.h $(INCLUDES_FT_PRINTF)/f
 %.o: $(SRC_PATH)%.c
 	$(COMPILER) -c $(FLAG) $< -I$(INCLUDES_FT_PRINTF) -I$(INCLUDES)
 
+./minilibx_macos/libmlx.a:
+	make -C ./minilibx_macos/
+
 $(LIB)libftprintf.a:
 	make -C $(LIB)
-	make clean -C $(LIB)
 
 .PHONY: clean fclean re
 
@@ -36,6 +39,7 @@ clean:
 	rm -f $(OBJ)
 
 fclean: clean
+	make clean -C ./minilibx_macos/
 	make fclean -C $(LIB)
 	rm -f $(NAME)
 
