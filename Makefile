@@ -1,47 +1,43 @@
-SRC_PATH=./src/
-SRC=main.c
-FLAG=-Wall -Wextra -Werror
+NAME = fdf
+INCLUDES=./includes
+INCLUDES_FT_PRINTF=./ft_printf/includes
+COMPILER = gcc
+LIB=./ft_printf/
+SRCS=main.c app.c draw_vec4.c color.c colors.c color_palette.c \
+		color_palette2.c vec4.c draw_line.c draw_line_obj.c \
+		line.c trgle.c draw_trgle.c op_mat4x4.c movement.c cube.c draw_obj.c \
+		projection.c prod_scal.c cam.c obj.c prod_vec.c rasterization.c \
+		rasterization_util.c sphere.c fdf.c fdf2.c vec4_lst.c \
+		mov_mat.c draw_scene.c scene.c mouse.c render.c text.c text2.c \
+		buffer.c insert_object.c key.c key2.c key3.c light.c error.c \
+		get_next_line.c
+SRC_PATH=./srcs/
+OBJ=$(SRCS:.c=.o)
+FLAG=-Wall -Werror -Wextra
 
-all:
-	gcc -o fdf \
-		$(SRC_PATH)main.c \
-		$(SRC_PATH)app.c \
-		$(SRC_PATH)draw_vec4.c \
-		$(SRC_PATH)color.c \
-		$(SRC_PATH)colors.c \
-		$(SRC_PATH)color_palette.c \
-		$(SRC_PATH)vec4.c \
-		$(SRC_PATH)draw_line.c \
-		$(SRC_PATH)draw_line_obj.c \
-		$(SRC_PATH)line.c \
-		$(SRC_PATH)trgle.c \
-		$(SRC_PATH)draw_trgle.c \
-		$(SRC_PATH)op_mat4x4.c \
-		$(SRC_PATH)movement.c \
-		$(SRC_PATH)cube.c \
-		$(SRC_PATH)draw_obj.c \
-		$(SRC_PATH)projection.c \
-		$(SRC_PATH)prod_scal.c \
-		$(SRC_PATH)cam.c \
-		$(SRC_PATH)obj.c \
-		$(SRC_PATH)prod_vec.c \
-		$(SRC_PATH)rasterization.c \
-		$(SRC_PATH)rasterization_util.c \
-		$(SRC_PATH)sphere.c \
-		$(SRC_PATH)fdf.c \
-		$(SRC_PATH)fdf2.c \
-		$(SRC_PATH)vec4_lst.c \
-		$(SRC_PATH)mov_mat.c \
-		$(SRC_PATH)draw_scene.c \
-		$(SRC_PATH)scene.c \
-		$(SRC_PATH)mouse.c \
-		$(SRC_PATH)render.c \
-		$(SRC_PATH)text.c \
-		$(SRC_PATH)text2.c \
-		$(SRC_PATH)buffer.c \
-		$(SRC_PATH)insert_object.c \
-		$(SRC_PATH)key.c \
-		$(SRC_PATH)key2.c \
-		$(SRC_PATH)key3.c \
-		$(SRC_PATH)light.c \
-	 	get_next_line.c $(FLAG) -I./ft_printf/includes/ -I./includes -L./ft_printf -L./minilibx_macos -framework OpenGL -framework AppKit -lmlx -lftprintf
+all: $(NAME)
+
+$(NAME): $(LIB)libftprintf.a $(INCLUDES)/get_next_line.h $(INCLUDES_FT_PRINTF)/ft_printf.h \
+	$(INCLUDES)/fdf.h $(OBJ)
+	$(COMPILER) -o $(NAME) -I$(INCLUDES_FT_PRINTF) -I$(INCLUDES) $(OBJ) -L$(LIB) -lftprintf \
+		-L./minilibx_macos -framework OpenGL -framework AppKit -lmlx
+
+%.o: $(SRC_PATH)%.c
+	$(COMPILER) -c $(FLAG) $< -I$(INCLUDES_FT_PRINTF) -I$(INCLUDES)
+
+$(LIB)libftprintf.a:
+	make -C $(LIB)
+	make clean -C $(LIB)
+
+.PHONY: clean fclean re
+
+clean:
+	make clean -C $(LIB)
+	rm -f $(OBJ)
+
+fclean: clean
+	make fclean -C $(LIB)
+	rm -f $(NAME)
+
+re: fclean $(NAME)
+

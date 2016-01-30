@@ -6,7 +6,7 @@
 /*   By: mfroehly <mfroehly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 01:43:06 by mfroehly          #+#    #+#             */
-/*   Updated: 2016/01/28 15:40:09 by mfroehly         ###   ########.fr       */
+/*   Updated: 2016/01/30 15:17:48 by mfroehly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ struct						s_fdf
 	unsigned int			largeur;
 	unsigned int			profondeur;
 	t_vec4_lst				lst;
-	unsigned int			max;
+	unsigned long int		max;
 };
 
 struct						s_line
@@ -193,9 +193,10 @@ struct						s_app
 	int						rem_no_visible;
 	float					ambient;
 	unsigned int			nb_trgl_draw;
-	void					(*colors[5])(t_vec4 *);
+	void					(*colors[10])(t_vec4 *);
 	char					print_text;
 	int						auto_rotate;
+	char					a_prof;
 };
 
 /*
@@ -225,9 +226,19 @@ void						color_default(t_vec4 *v);
 void						color_black_red(t_vec4 *v);
 
 /*
+** color_palette2.c
+*/
+void						color_red_blue(t_vec4 *v);
+void						color_yellow_red(t_vec4 *v);
+void						color_white(t_vec4 *v);
+void						color_green(t_vec4 *v);
+void						color_white_blue(t_vec4 *v);
+
+/*
 ** colors.c
 */
 void						init_colors(t_app *app);
+
 /*
 ** vec4.c
 */
@@ -423,6 +434,7 @@ void						print_text(t_app *app);
 void						print_text_onoff(t_app *app);
 void						print_text_pos(t_app *app);
 void						print_text_info2(t_app *app);
+void						print_text_insert(t_app *app);
 
 /*
 ** buffer.c
@@ -462,4 +474,9 @@ int							key_print_text(int key, t_app *app);
 ** light.c
 */
 void						do_light(t_app *app, t_trgle t);
+
+/*
+** error.c
+*/
+void						put_error();
 #endif
