@@ -1,5 +1,6 @@
 NAME = fdf
 INCLUDES=./includes
+INCLUDES_MLX=./minilibx_macos
 INCLUDES_FT_PRINTF=./ft_printf/includes
 COMPILER = gcc
 LIB=./ft_printf/
@@ -18,13 +19,13 @@ FLAG=-Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME): $(LIB)libftprintf.a ./minilibx_macos/libmlx.a \
-	$(INCLUDES)/get_next_line.h $(INCLUDES_FT_PRINTF)/ft_printf.h \
+	$(INCLUDES)/get_next_line.h $(INCLUDES_FT_PRINTF)/ft_printf.h $(INCLUDES_MLX)/mlx.h\
 	$(INCLUDES)/fdf.h $(OBJ)
-	$(COMPILER) -o $(NAME) -I$(INCLUDES_FT_PRINTF) -I$(INCLUDES) $(OBJ) -L$(LIB) -lftprintf \
+	$(COMPILER) -o $(NAME) -I$(INCLUDES_FT_PRINTF) -I$(INCLUDES) -I$(INCLUDES_MLX) $(OBJ) -L$(LIB) -lftprintf \
 		-L./minilibx_macos -framework OpenGL -framework AppKit -lmlx
 
 %.o: $(SRC_PATH)%.c
-	$(COMPILER) -c $(FLAG) $< -I$(INCLUDES_FT_PRINTF) -I$(INCLUDES)
+	$(COMPILER) -c $(FLAG) $< -I$(INCLUDES_FT_PRINTF) -I$(INCLUDES) -I$(INCLUDES_MLX)
 
 ./minilibx_macos/libmlx.a:
 	make -C ./minilibx_macos/
